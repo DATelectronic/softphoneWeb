@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CorusPhone</title>
+    <link rel="icon" type="image/gif" href="img/logos_trasero telectronic-03[576].png" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="css/ctxSip.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body id="sipClient">
+    <div class="container-fluid py-9">
+
+        <div style="display: flex !important; gap: 15px; justify-content: center;">
+            <div>
+                <div class="clearfix sipStatus">
+                    <div id="txtCallStatus" class="pull-right">&nbsp;</div>
+                    <div id="txtRegStatus"></div>
+                </div>
+                <div class="w-ful bg-white flex px-4 gap-4 h-32">
+                    <ul class="w-1/3 self-center">
+                        <li class="flex mb-1">
+                            <p class="text-slate-500 mr-1">Agente: </p> <p id="agent"></p> 
+                        </li>
+                        <li class="flex">
+                            <p class="text-slate-500 mr-1">Anexo: </p><p id="anexo"></p> 
+                        </li>
+                    </ul>
+                    <div id="call-section" class="w-2/3 self-center"></div>
+                </div>
+                <div class="form-group" id="phoneUI">
+                    <div class="flex w-full">
+                        <!-- <button class="btn btn-lg btn-primary w-1/6" title="Show Keypad">
+                            <i class="fa fa-delete"></i>
+                        </button> -->
+                        <div class="input-group-btn input-group-btn-sm w-1/6">
+                            <!-- <button class="btn btn-lg btn-primary dropdown-toggle w-full" id="btnVol"
+                                    title="Volume">
+                                    <i class="fa fa-fw fa-volume-up"></i>
+                                </button> -->
+                            <button id="btnVol" data-toggle="dropdown"
+                                class="inline-flex items-center justify-center w-full px-6 py-3 mb-2 text-lg text-white bg-blue-500 hover:bg-blue-400 rounded-none h-full"
+                                data-primary="green-400" data-rounded="rounded-2xl" data-primary-reset="{}">
+                                <i class="fa fa-fw fa-volume-up text-3xl"></i>
+                                <!-- <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> -->
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-left">
+                                <input type="range" min="0" max="100" value="100" step="1" id="sldVolume" />
+                            </div>
+
+                        </div>
+                        <input type="text" name="number" id="numDisplay"
+                            class="form-control text-center input-lg rounded-none w-4/6 text-[15px]" value=""
+                            placeholder="Ingrese Numero" autocomplete="off" />
+                        <div class="input-group-btn input-group-btn-sm w-1/6">
+                            <button
+                                class="btnCall inline-flex items-center justify-center w-full px-6 py-3 mb-2 text-lg text-white bg-green-500 hover:bg-green-400 rounded-none h-full"
+                                data-primary="green-400" data-rounded="rounded-2xl" data-primary-reset="{}">
+                                <i class="fa fa-phone text-3xl"></i>
+                                <!-- <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> -->
+                            </button>
+                        </div>
+
+                    </div>
+                    <div id="sip-dialpad" class="bg-white rounded-b-xl">
+                        <button type="button" class="btn btn-default digit" data-digit="1">1<span>&nbsp;</span></button>
+                        <button type="button" class="btn btn-default digit" data-digit="2">2<span>ABC</span></button>
+                        <button type="button" class="btn btn-default digit" data-digit="3">3<span>DEF</span></button>
+                        <button type="button" class="btn btn-default digit" data-digit="4">4<span>GHI</span></button>
+                        <button type="button" class="btn btn-default digit" data-digit="5">5<span>JKL</span></button>
+                        <button type="button" class="btn btn-default digit" data-digit="6">6<span>MNO</span></button>
+                        <button type="button" class="btn btn-default digit" data-digit="7">7<span>PQRS</span></button>
+                        <button type="button" class="btn btn-default digit" data-digit="8">8<span>TUV</span></button>
+                        <button type="button" class="btn btn-default digit" data-digit="9">9<span>WXYZ</span></button>
+                        <button type="button" class="btn btn-default digit" data-digit="*">*<span>&nbsp;</span></button>
+                        <button type="button" class="btn btn-default digit" data-digit="0">0<span>+</span></button>
+                        <button type="button" class="btn btn-default digit" data-digit="#">#<span>&nbsp;</span></button>
+                        <div class="clearfix">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="well-sip">
+                <!-- <div id="sip-splash" class="text-muted text-center panel panel-default">
+                    <div class="panel-body">
+                        <h3 class="page-header">
+                            <span class="fa-stack fa-2x">
+                                <i class="fa fa-circle fa-stack-2x text-success"></i>
+                                <i class="fa fa-phone fa-stack-1x fa-inverse"></i>
+                            </span><br>
+                            This is your phone.
+                        </h3>
+                        <p class="lead">To make a call enter a number or SIP address in the box above.</p>
+                        <small>Closing this window will cause calls to go to voicemail.</small>
+                    </div>
+                </div> -->
+
+                <div id="sip-log" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="text-muted panel-title">Llamadas Recientes <span class="pull-right"><i
+                                    class="fa fa-trash sipLogClear cursor-pointer" title="Clear Log"></i></span></h4>
+                    </div>
+                    <div id="sip-logitems" class="list-group">
+                        <!-- <p class="text-muted text-center">No recent calls from this browser.</p> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="mdlError" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
+            data-keyboard="false">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Sip Error</h4>
+                    </div>
+                    <div class="modal-body text-center text-danger">
+                        <h3><i class="fa fa-3x fa-ban"></i></h3>
+                        <p class="lead">Sip registration failed. No calls can be handled.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <footer class="footer flex">
+        <p class="footer-text">
+            <img src="./img/logos_telectronic-02[573].png" class="h-20">
+            Desarrollado por Telectronic&nbsp;2023
+            <span class="footer-span"></span>
+            &copy;&nbsp;Todos&nbsp;los&nbsp;derechos&nbsp;reservados
+        </p>
+    </footer>
+    <!-- <footer class="w-full absolute bottom-[5%] flex justify-center text-white"><p>Softphone Desarrollado Por Telectronic</p> </footer> -->
+    <audio id="ringtone" src="sounds/incoming.mp3" loop></audio>
+    <audio id="ringbacktone" src="sounds/outgoing.mp3" loop></audio>
+    <audio id="dtmfTone" src="sounds/dtmf.mp3"></audio>
+    <audio id="audioRemote"></audio>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="scripts/moment.js/moment.min.js"></script>
+
+    <script type="text/javascript" src="scripts/SIP.js/sip.min.js"></script>
+    <script type="text/javascript" src="scripts/app.js"></script>
+
+</body>
+
+</html>
