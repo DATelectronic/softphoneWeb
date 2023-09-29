@@ -656,7 +656,7 @@ $(document).ready(function () {
         e.preventDefault();
     });
 
-    $('#phoneUI').delegate('.btnCall', 'click', function (event) {
+    $('#input-section').delegate('.btnCall', 'click', function (event) {
         ctxSip.phoneCallButtonPressed();
         // to close the dropdown
         return true;
@@ -725,47 +725,47 @@ $(document).ready(function () {
         });
 
         if (v < 0.1) {
-            btn.removeClass(function (index, css) {
-                // Split the class attribute into individual classes
-                var classes = css.split(' ');
+            // btn.removeClass(function (index, css) {
+            //     // Split the class attribute into individual classes
+            //     var classes = css.split(' ');
 
-                // Filter out classes that start with 'bg-' or 'hover:bg-'
-                var filteredClasses = classes.filter(function (className) {
-                    return className.startsWith('bg-') || className.startsWith('hover:bg-');
-                });
+            //     // Filter out classes that start with 'bg-' or 'hover:bg-'
+            //     var filteredClasses = classes.filter(function (className) {
+            //         return className.startsWith('bg-') || className.startsWith('hover:bg-');
+            //     });
 
-                // Join the filtered classes back together
-                return filteredClasses.join(' ');
-            })
-                .addClass('bg-red-500 hover:bg-red-400');
+            //     // Join the filtered classes back together
+            //     return filteredClasses.join(' ');
+            // })
+            //     .addClass('bg-red-500 hover:bg-red-400');
             icon.removeClass().addClass('fa fa-fw fa-volume-off text-3xl');
         } else if (v < 0.8) {
-            btn.removeClass(function (index, css) {
-                // Split the class attribute into individual classes
-                var classes = css.split(' ');
+            // btn.removeClass(function (index, css) {
+            //     // Split the class attribute into individual classes
+            //     var classes = css.split(' ');
 
-                // Filter out classes that start with 'bg-' or 'hover:bg-'
-                var filteredClasses = classes.filter(function (className) {
-                    return className.startsWith('bg-') || className.startsWith('hover:bg-');
-                });
+            //     // Filter out classes that start with 'bg-' or 'hover:bg-'
+            //     var filteredClasses = classes.filter(function (className) {
+            //         return className.startsWith('bg-') || className.startsWith('hover:bg-');
+            //     });
 
-                // Join the filtered classes back together
-                return filteredClasses.join(' ');
-            }).addClass('bg-yellow-500 hover:bg-yellow-400');
+            //     // Join the filtered classes back together
+            //     return filteredClasses.join(' ');
+            // }).addClass('bg-yellow-500 hover:bg-yellow-400');
             icon.removeClass().addClass('fa fa-fw fa-volume-down text-3xl');
         } else {
-            btn.removeClass(function (index, css) {
-                // Split the class attribute into individual classes
-                var classes = css.split(' ');
+            // btn.removeClass(function (index, css) {
+            //     // Split the class attribute into individual classes
+            //     var classes = css.split(' ');
 
-                // Filter out classes that start with 'bg-' or 'hover:bg-'
-                var filteredClasses = classes.filter(function (className) {
-                    return className.startsWith('bg-') || className.startsWith('hover:bg-');
-                });
+            //     // Filter out classes that start with 'bg-' or 'hover:bg-'
+            //     var filteredClasses = classes.filter(function (className) {
+            //         return className.startsWith('bg-') || className.startsWith('hover:bg-');
+            //     });
 
-                // Join the filtered classes back together
-                return filteredClasses.join(' ');
-            }).addClass('bg-blue-500 hover:bg-blue-400');
+            //     // Join the filtered classes back together
+            //     return filteredClasses.join(' ');
+            // }).addClass('bg-blue-500 hover:bg-blue-400');
             icon.removeClass().addClass('fa fa-fw fa-volume-up text-3xl');
         }
         return false;

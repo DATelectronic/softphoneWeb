@@ -1,15 +1,24 @@
-html,body{
+html,
+body {
   min-height: 100vh;
 }
-.footer {
-	background-color: #454545;
-	color: #ffffff;
-	padding: 15px;
-	position: fixed;
-	width: 100%;
-	bottom: 0;
-	text-align: center;
+
+.primary-shadow {
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 53%);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
+
+.footer {
+  background-color: #454545;
+  color: #ffffff;
+  padding: 15px;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  text-align: center;
+}
+
 #sipClient {
   background-color: #333;
   font-size: 13px;
@@ -17,40 +26,53 @@ html,body{
   /* firefox 19+ */
   /* ie */
 }
+
 #sipClient p {
   /* margin: 0; */
   /* padding: 0 0 10px 0; */
   line-height: 18px;
 }
-.btn-lg{
+
+.btn-lg {
   border-radius: 0px;
 }
+
 #sipClient .sipStatus {
   /* margin: 0 -15px 15px -15px; */
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-  padding: 5px 15px;
-  background-color: #111;
-  color: #999;
+  /* border-top-left-radius: 3px; */
+  /* border-top-right-radius: 3px; */
+  /* padding: 5px 15px; */
+  /* background-color: #fff; */
+  color: #070707;
 }
+
 #sipClient #txtCallStatus {
-  color: #fff;
+  color: black;
 }
-#phoneUI{width:  292px;}
+
+#phoneUI {
+  width: 292px;
+}
+
 #sipClient #sip-dialpad {
   width: 292px;
-  padding: 16px 20px;
+  /* padding: 16px 20px; */
   margin: 0;
   /* border-radius: 0; */
   border: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
+
 #sipClient #sip-dialpad .col-xs-4 {
   text-align: center;
 }
+
 #sipClient .digit {
   height: 66px;
   width: 66px;
-  margin: 0 8px 14px !important;
+  margin: 6px 5px 6px !important;
   background-color: #f8f8f8;
   font-weight: 300;
   font-size: 24px;
@@ -59,55 +81,75 @@ html,body{
   padding-top: 9px;
   float: left;
 }
+
 #sipClient .digit span {
   display: block;
   color: #999;
   font-size: 10px;
   font-weight: normal;
 }
+
 #sipClient .sip-panel h3 {
   margin-top: 22px;
 }
+
 #sipClient #sip-splash {
   height: 371px;
 }
+
 #sipClient #sip-splash .fa {
   margin-bottom: 15px;
 }
+
 #sipClient #sip-splash .fa-circle {
   color: #5cb85c;
 }
+
 #sipClient #sip-log .panel-heading {
   padding: 10px 8px;
 }
+
 #sipClient #sip-logitems {
   height: 332px;
   overflow: auto;
 }
+
 #sipClient #sldVolume {
   width: 140px;
   margin: 0 auto;
   box-shadow: none;
 }
+
 #sipClient .sip-logitem {
   padding: 4px;
 }
+
 #sipClient #numDisplay::-webkit-input-placeholder {
   color: #bbb;
 }
+
 #sipClient #numDisplay::-moz-placeholder {
   color: #bbb;
 }
+
 #sipClient #numDisplay::-ms-input-placeholder {
   color: #bbb;
 }
+
 #sipClient #numDisplay::-moz-placeholder {
   color: #bbb;
 }
-#sip-log{
+
+#sip-log {
   width: 200px;
   border-radius: 0;
 }
-.btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
+
+.btn.active.focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn:active:focus,
+.btn:focus {
   outline: none;
 }
