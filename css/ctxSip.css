@@ -110,7 +110,7 @@ body {
 }
 
 #sipClient #sip-logitems {
-  height: 332px;
+  height: 251px;
   overflow: auto;
 }
 
@@ -121,7 +121,8 @@ body {
 }
 
 #sipClient .sip-logitem {
-  padding: 4px;
+  padding: 0;
+  padding-top: 4px;
 }
 
 #sipClient #numDisplay::-webkit-input-placeholder {
@@ -150,6 +151,18 @@ body {
 .btn.focus,
 .btn:active.focus,
 .btn:active:focus,
-.btn:focus {
+.btn:focus,
+input:focus {
   outline: none;
+}
+li.active>a {
+  border: none !important;
+  background-color: #eee !important;
+  border-radius: 0 !important;
+  
+}
+li.active>a:hover {
+  color: #555;
+  cursor: default;
+  background-color: #fff;
 }

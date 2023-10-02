@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CorusPhone</title>
-    <link rel="icon" type="image/gif" href="img/logos_trasero telectronic-03[576].png" />
+    <link rel="icon" type="image/svg+xml" href="corus.svg" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -17,23 +17,43 @@
 
         <div style="display: flex !important; gap: 15px; justify-content: center;">
             <div class="bg-gray-300 rounded-sm">
-                <div class="w-full p-3"> SoftPhone Telectronic</div>
+                <div class="w-full p-3 flex gap-2"> <object data="corus.svg" type="image/svg+xml">
+                        Your browser does not support SVGs.
+                    </object> CorusPhone Beta v0.1</div>
                 <div class="w-full px-4 py-4 bg-gray-200 primary-shadow relative">
-                    <div class="clearfix sipStatus pb-2">
-                        <div class="flex relative">
-                            <div class="text-sm text-gray-400">Estado</div>
-                            <div class="text-sm text-gray-400 absolute right-[10%]">Log</div>
+                    <div class="w-full flex gap-[5.3rem] mb-1">
+                        <div class="flex">
+                            <div id="status-net" class="rounded-[50%] bg-green-400 h-11 w-11 flex justify-center mr-1">
+                            </div>
+                            <div class="">
+                                <div class="text-sm text-gray-400">Estado</div>
+                                <div class="flex">
+                                    <div id="txtRegStatus"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div id="txtCallStatus" class="pull-right">&nbsp;</div>
-                        <div id="txtRegStatus"></div>
+                        <div class="">
+                            <div class="text-sm text-gray-400">Log</div>
+                            <div class="flex">
+                                <div id="txtRegStatus"></div>
+                                <div id="txtCallStatus" class="pull-right">&nbsp;</div>
+                            </div>
+                        </div>
                     </div>
                     <div class="w-full gap-4">
-                        <div class="w-full self-center flex gap-6">
-                            <div class="">
-                                <div class="text-sm text-gray-400">Cuenta Registrada</div>
-                                <div class="flex">
-                                    <p class="text-black mr-1"><i class="fa fa-user text-3xl"></i></p>
-                                    <p id="agent"></p>
+                        <div class="w-full self-center flex gap-0.5">
+                            <div class="flex">
+                                <div class="mr-1">
+                                    <div class="rounded-[50%] bg-slate-400 h-11 w-11 flex justify-center">
+                                        <i class="fa fa-user text-3xl text-white self-center"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="text-sm text-gray-400">Cuenta Registrada</div>
+                                    <div class="flex">
+
+                                        <p id="agent"></p>
+                                    </div>
                                 </div>
                             </div>
                             <div class="flex">
@@ -43,12 +63,13 @@
                                         <i class="fa fa-fw fa-volume-up"></i>
                                     </button> -->
                                     <div id="btnVol" data-toggle="dropdown"
-                                        class="inline-flex items-center justify-center w-full px-3 py-3 mb-2 text-lg text-black rounded-none h-full"
+                                        class="inline-flex items-center justify-center px-3 py-3 mb-2 rounded-none h-full"
                                         data-primary="green-400" data-rounded="rounded-2xl" data-primary-reset="{}">
-                                        <i class="fa fa-fw fa-volume-up text-3xl"></i>
+                                        <i class="fa fa-fw fa-volume-up text-3xl text-black"></i>
                                     </div>
-                                    <div class="inline-flex items-center ">
-                                        <input type="range" min="0" max="100" value="100" step="1" id="sldVolume" />
+                                    <div class="inline-flex items-center w-28">
+                                        <input class="h-[5px]" type="range" min="0" max="100" value="100" step="1"
+                                            id="sldVolume" />
                                     </div>
 
                                 </div>
@@ -59,16 +80,18 @@
                             <!-- <button class="btn btn-lg btn-primary w-1/6" title="Show Keypad">
                             <i class="fa fa-delete"></i>
                         </button> -->
-                            <input type="text" name="number" id="numDisplay"
-                                class="primary-shadow form-control text-center input-lg rounded-none w-4/6 text-[15px] rounded-l-md"
-                                value="" placeholder="Ingrese Numero" autocomplete="off" />
-                            <div class="input-group-btn input-group-btn-sm w-1/6">
-                                <button
-                                    class="btnCall inline-flex items-center justify-center w-full px-6 py-3 mb-2 text-lg text-white bg-green-500 hover:bg-green-400 rounded-none h-full rounded-r-md"
-                                    data-primary="green-400" data-rounded="rounded-2xl" data-primary-reset="{}">
-                                    <i class="fa fa-phone text-3xl"></i>
-                                    <!-- <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> -->
-                                </button>
+                            <div class="rounded-md flex 3/5 primary-shadow relative overflow-hidden">
+                                <input type="text" name="number" id="numDisplay"
+                                    class=" form-control text-center input-lg w-5/6 text-[15px] rounded-none rounded-l-md"
+                                    value="" placeholder="Ingrese Numero" autocomplete="off" />
+                                <div class="input-group-btn input-group-btn-sm w-1/6">
+                                    <button
+                                        class="btnCall inline-flex items-center justify-center w-full px-6 py-3 mb-2 text-lg text-white bg-[#ccc] hover:bg-[#999] rounded-none h-full"
+                                        data-primary="green-400" data-rounded="rounded-2xl" data-primary-reset="{}">
+                                        <i class="fa fa-phone text-4xl text-green-500"></i>
+                                        <!-- <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> -->
+                                    </button>
+                                </div>
                             </div>
 
                         </div>
@@ -76,19 +99,84 @@
                 </div>
                 <div id="phoneUI">
                     <div id="sip-dialpad" class="bg-white">
-                        <button type="button" class="btn btn-default digit" data-digit="1">1<span>&nbsp;</span></button>
-                        <button type="button" class="btn btn-default digit" data-digit="2">2<span>ABC</span></button>
-                        <button type="button" class="btn btn-default digit" data-digit="3">3<span>DEF</span></button>
-                        <button type="button" class="btn btn-default digit" data-digit="4">4<span>GHI</span></button>
-                        <button type="button" class="btn btn-default digit" data-digit="5">5<span>JKL</span></button>
-                        <button type="button" class="btn btn-default digit" data-digit="6">6<span>MNO</span></button>
-                        <button type="button" class="btn btn-default digit" data-digit="7">7<span>PQRS</span></button>
-                        <button type="button" class="btn btn-default digit" data-digit="8">8<span>TUV</span></button>
-                        <button type="button" class="btn btn-default digit" data-digit="9">9<span>WXYZ</span></button>
-                        <button type="button" class="btn btn-default digit" data-digit="*">*<span>&nbsp;</span></button>
-                        <button type="button" class="btn btn-default digit" data-digit="0">0<span>+</span></button>
-                        <button type="button" class="btn btn-default digit" data-digit="#">#<span>&nbsp;</span></button>
-                        <!-- <div class="clearfix">&nbsp;</div> -->
+                        <div class="tab-content h-[315px] my-1">
+                            <div id="defaultTab" class="tab-pane fade in active">
+                                <div class="w-full flex justify-center flex-wrap">
+                                    <button type="button" class="btn btn-default digit"
+                                        data-digit="1">1<span>&nbsp;</span></button>
+                                    <button type="button" class="btn btn-default digit"
+                                        data-digit="2">2<span>ABC</span></button>
+                                    <button type="button" class="btn btn-default digit"
+                                        data-digit="3">3<span>DEF</span></button>
+                                    <button type="button" class="btn btn-default digit"
+                                        data-digit="4">4<span>GHI</span></button>
+                                    <button type="button" class="btn btn-default digit"
+                                        data-digit="5">5<span>JKL</span></button>
+                                    <button type="button" class="btn btn-default digit"
+                                        data-digit="6">6<span>MNO</span></button>
+                                    <button type="button" class="btn btn-default digit"
+                                        data-digit="7">7<span>PQRS</span></button>
+                                    <button type="button" class="btn btn-default digit"
+                                        data-digit="8">8<span>TUV</span></button>
+                                    <button type="button" class="btn btn-default digit"
+                                        data-digit="9">9<span>WXYZ</span></button>
+                                    <button type="button" class="btn btn-default digit"
+                                        data-digit="*">*<span>&nbsp;</span></button>
+                                    <button type="button" class="btn btn-default digit"
+                                        data-digit="0">0<span>+</span></button>
+                                    <button type="button" class="btn btn-default digit"
+                                        data-digit="#">#<span>&nbsp;</span></button>
+                                </div>
+                            </div>
+                            <div id="additionalTab" class="tab-pane fade py-3">
+                                <div id="sip-log" class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="text-muted panel-title">Historial de llamadas<span
+                                                class="pull-right"><i class="fa fa-trash sipLogClear cursor-pointer"
+                                                    title="Limpiar llamadas"></i></span></h4>
+                                    </div>
+                                    <div id="sip-logitems" class="list-group">
+                                        <!-- <p class="text-muted text-center">No recent calls from this browser.</p> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container my-1 w-full border-t-2">
+                            <ul class="nav nav-tabs flex justify-center border-none">
+                                <li class="active"><a data-toggle="tab" href="#defaultTab"><svg
+                                            xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            viewBox="0 0 200 200">
+                                            <!-- First Row -->
+                                            <circle cx="50" cy="50" r="15" fill="black" />
+                                            <circle cx="100" cy="50" r="15" fill="black" />
+                                            <circle cx="150" cy="50" r="15" fill="black" />
+
+                                            <!-- Second Row -->
+                                            <circle cx="50" cy="100" r="15" fill="black" />
+                                            <circle cx="100" cy="100" r="15" fill="black" />
+                                            <circle cx="150" cy="100" r="15" fill="black" />
+
+                                            <!-- Third Row -->
+                                            <circle cx="50" cy="150" r="15" fill="black" />
+                                            <circle cx="100" cy="150" r="15" fill="black" />
+                                            <circle cx="150" cy="150" r="15" fill="black" />
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li><a data-toggle="tab" href="#additionalTab"><svg xmlns="http://www.w3.org/2000/svg"
+                                            width="30" height="30" viewBox="0 0 100 100">
+                                            <!-- Clock Face -->
+                                            <circle cx="50" cy="50" r="40" stroke="black" stroke-width="4"
+                                                fill="none" />
+
+                                            <!-- Clock Hands -->
+                                            <line x1="50" y1="50" x2="50" y2="30" stroke="black" stroke-width="4" />
+                                            <line x1="50" y1="50" x2="70" y2="50" stroke="black" stroke-width="4" />
+                                        </svg>
+
+                                    </a></li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="flex">
 
@@ -100,29 +188,6 @@
             </div>
 
             <div class="well-sip">
-                <!-- <div id="sip-splash" class="text-muted text-center panel panel-default">
-                    <div class="panel-body">
-                        <h3 class="page-header">
-                            <span class="fa-stack fa-2x">
-                                <i class="fa fa-circle fa-stack-2x text-success"></i>
-                                <i class="fa fa-phone fa-stack-1x fa-inverse"></i>
-                            </span><br>
-                            This is your phone.
-                        </h3>
-                        <p class="lead">To make a call enter a number or SIP address in the box above.</p>
-                        <small>Closing this window will cause calls to go to voicemail.</small>
-                    </div>
-                </div> -->
-
-                <div id="sip-log" class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="text-muted panel-title">Llamadas Recientes <span class="pull-right"><i
-                                    class="fa fa-trash sipLogClear cursor-pointer" title="Clear Log"></i></span></h4>
-                    </div>
-                    <div id="sip-logitems" class="list-group">
-                        <!-- <p class="text-muted text-center">No recent calls from this browser.</p> -->
-                    </div>
-                </div>
             </div>
         </div>
         <div class="modal fade" id="mdlError" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
@@ -141,6 +206,37 @@
         </div>
 
     </div>
+    <!-- <div class="w-72 list-group-item sip-logitem clearfix bg-white primary-shadow relative border-none rounded-md overflow-hidden"
+        data-uri="sip:103@debian" data-sessionid="7968sadj7" title="">
+        <div class="w-full px-2 pt-2">
+            <div class="text-sm border-b-2 mb-3">Llamada entrante</div>
+            <div class="clearfix">
+                <div class="pull-left"><i class="fa fa-fw fa-phone fa-fw"></i> <strong>103</strong><br><small>09/29
+                        01:58:22
+                        pm</small></div>
+                <div class="pull-right text-right"><em>”User Four”</em><br><span id="7968sadj7"></span></div>
+            </div>
+        </div>
+        <div class="relative h-12"></div>
+        <div class="bg-gray-300 w-full flex justify-end absolute bottom-[0%]"><button
+                class="btn btn-md rounded-none btn-success btnCall" title="Contestar"><i
+                    class="fa fa-phone"></i></button><button class="btn btn-md rounded-none btn-danger btnHangUp"
+                title="Colgar"><i class="fa fa-phone transform rotate-[138deg]"></i></button></div>
+    </div>
+    <div class="w-72 list-group-item sip-logitem clearfix list-group-item-info primary-shadow" data-uri="sip:103@debian"
+        data-sessionid="2i02gtzsg" title="Double Click to Call">
+        <div class="clearfix">
+            <div class="pull-left"><i class="fa fa-fw fa-phone-square fa-fw"></i> <strong>103</strong><br><small>09/29
+                    02:44:31 pm</small></div>
+            <div class="pull-right text-right"><em>”User Four”</em><br><span id="2i02gtzsg"><span>00:09</span></span>
+            </div>
+        </div>
+        <div class="btn-group btn-group-xs pull-right"><button class="btn btn-xs btn-primary btnHoldResume"
+                title="Espera"><i class="fa fa-pause"></i></button><button class="btn btn-xs btn-info btnTransfer"
+                title="Transferir"><i class="fa fa-random"></i></button><button class="btn btn-xs btn-warning btnMute"
+                title="Mutear"><i class="fa fa-fw fa-microphone"></i></button><button
+                class="btn btn-xs btn-danger btnHangUp" title="Colgar"><i class="fa fa-stop"></i></button></div>
+    </div> -->
     <footer class="footer flex">
         <p class="footer-text">
             <img src="./img/logos_telectronic-02[573].png" class="h-20">

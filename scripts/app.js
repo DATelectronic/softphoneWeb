@@ -10,7 +10,7 @@ $(document).ready(function () {
     }
 
     const params = new URLSearchParams(window.location.search);
-    
+
     // Get specific parameters
     const param1 = params.get('param1');
     const name = params.get('param2');
@@ -18,13 +18,13 @@ $(document).ready(function () {
 
     $('#agent').text(name);
     $('#anexo').text(anexo);
-    
+
     ctxSip = {
 
         config: {
             password: "1234",
             displayName: param1,
-            uri: "sip:"+param1+"@172.16.200.37",
+            uri: "sip:" + param1 + "@172.16.200.37",
             wsServers: "wss://172.16.200.37:8089/ws",
             registerExpires: 30,
             traceSip: true,
@@ -221,7 +221,10 @@ $(document).ready(function () {
          * @param {string} status
          */
         setStatus: function (status) {
-            $("#txtRegStatus").html('<i class="fa fa-signal"></i> ' + status);
+            // i='<span class="rounded-[50%] bg-green-400 p-3">';
+            i='<i class="fa fa-signal text-white self-center"></i>';
+            $("#status-net").html(i);
+            $("#txtRegStatus").html(status);
         },
 
         /**
@@ -285,7 +288,7 @@ $(document).ready(function () {
 
             switch (item.status) {
                 case 'ringing':
-                    callClass = 'list-group-item-success';
+                    callClass = 'bg-white primary-shadow';
                     callIcon = 'fa-phone';
                     break;
 
@@ -296,13 +299,13 @@ $(document).ready(function () {
                     break;
 
                 case 'holding':
-                    callClass = 'list-group-item-warning';
+                    callClass = 'list-group-item-warning primary-shadow';
                     callIcon = 'fa-pause';
                     break;
 
                 case 'answered':
                 case 'resumed':
-                    callClass = 'list-group-item-info';
+                    callClass = 'list-group-item-info primary-shadow';
                     callIcon = 'fa-phone-square';
                     break;
 
@@ -318,22 +321,43 @@ $(document).ready(function () {
                     break;
             }
 
-            i = '<div class="list-group-item sip-logitem clearfix ' + callClass + '" data-uri="' + item.uri + '" data-sessionid="' + item.id + '" title="Double Click to Call">';
+            i = '<div class=" overflow-hidden border-none list-group-item sip-logitem clearfix ' + callClass + '" data-uri="' + item.uri + '" data-sessionid="' + item.id + '" title="">';
+            i += '<div class="w-full px-2 pt-2">';
+            console.log(item.status)
+            if (item.flow === 'incoming') {
+                if (item.status === 'resumed' || item.status === 'answered') {
+                    i += '<div class="text-sm border-b-2 mb-3">Llamada en curso</div>';
+                } else if (item.status === 'holding') {
+                    i += '<div class="text-sm border-b-2 mb-3">Llamada en espera</div>';
+                } else {
+                    i += '<div class="text-sm border-b-2 mb-3">Llamada entrante</div>';
+                }
+            } else {
+                if (item.status === 'resumed' || item.status === 'answered') {
+                    i += '<div class="text-sm border-b-2 mb-3">Llamada en curso</div>';
+                } else if (item.status === 'holding') {
+                    i += '<div class="text-sm border-b-2 mb-3">Llamada en espera</div>';
+                } else {
+                    i += '<div class="text-sm border-b-2 mb-3">Llamada saliente</div>';
+                }
+            }
             i += '<div class="clearfix"><div class="pull-left">';
             i += '<i class="fa fa-fw ' + callIcon + ' fa-fw"></i> <strong>' + ctxSip.formatPhone(item.uri) + '</strong><br><small>' + moment(item.start).format('MM/DD hh:mm:ss a') + '</small>';
             i += '</div>';
-            i += '<div class="pull-right text-right"><em>' + item.clid + '</em><br>' + callLength + '</div></div>';
+            i += '<div class="pull-right text-right"><em>' + item.clid + '</em><br>' + callLength + '</div></div></div>';
 
             if (callActive) {
-                i += '<div class="btn-group btn-group-xs pull-right">';
+                i += '<div class="relative h-14"></div>';
+                i += '<div class="bg-gray-300 w-full flex justify-end absolute bottom-[0%]">';
+
                 if (item.status === 'ringing' && item.flow === 'incoming') {
-                    i += '<button class="btn btn-xs btn-success btnCall" title="Call"><i class="fa fa-phone"></i></button>';
+                    i += '<button class="btn btn-xs btn-success btnCall rounded-none" title="Contestar"><i class="fa fa-phone"></i></button>';
                 } else {
-                    i += '<button class="btn btn-xs btn-primary btnHoldResume" title="Hold"><i class="fa fa-pause"></i></button>';
-                    i += '<button class="btn btn-xs btn-info btnTransfer" title="Transfer"><i class="fa fa-random"></i></button>';
-                    i += '<button class="btn btn-xs btn-warning btnMute" title="Mute"><i class="fa fa-fw fa-microphone"></i></button>';
+                    i += '<button class="btn btn-xs btnHoldResume rounded-none" title="Espera"><i class="fa fa-pause"></i></button>';
+                    i += '<button class="btn btn-xs btnTransfer rounded-none" title="Transferir"><i class="fa fa-random"></i></button>';
+                    i += '<button class="btn btn-xs btnMute rounded-none" title="Mutear"><i class="fa fa-fw fa-microphone"></i></button>';
                 }
-                i += '<button class="btn btn-xs btn-danger btnHangUp" title="Hangup"><i class="fa fa-stop"></i></button>';
+                i += '<button class="btn btn-xs btn-danger btnHangUp rounded-none" title="Colgar"><i class="fa fa-phone transform rotate-[138deg]"></i></button>';
                 i += '</div>';
                 i += '</div>';
                 $('#call-section').append(i);
@@ -430,9 +454,9 @@ $(document).ready(function () {
         sipTransfer: function (sessionid) {
 
             var s = ctxSip.Sessions[sessionid],
-                target = window.prompt('Enter destination number', '');
+                target = window.prompt('Ingrese el numero', '');
 
-            ctxSip.setCallSessionStatus('<i>Transfering the call...</i>');
+            ctxSip.setCallSessionStatus('<i>Transferiendo la llamada...</i>');
             s.refer(target);
         },
 
