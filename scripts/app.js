@@ -149,7 +149,7 @@ $(document).ready(function () {
 
             newSess.on('muted', function (e) {
                 ctxSip.Sessions[newSess.ctxid].isMuted = true;
-                ctxSip.setCallSessionStatus("Muteada");
+                ctxSip.setCallSessionStatus("Mute");
             });
 
             newSess.on('unmuted', function (e) {
@@ -222,7 +222,7 @@ $(document).ready(function () {
          */
         setStatus: function (status) {
             // i='<span class="rounded-[50%] bg-green-400 p-3">';
-            i='<i class="fa fa-signal text-white self-center"></i>';
+            i = '<i class="fa fa-signal text-white self-center"></i>';
             $("#status-net").html(i);
             $("#txtRegStatus").html(status);
         },
@@ -326,19 +326,19 @@ $(document).ready(function () {
             console.log(item.status)
             if (item.flow === 'incoming') {
                 if (item.status === 'resumed' || item.status === 'answered') {
-                    i += '<div class="text-sm border-b-2 mb-3">Llamada en curso</div>';
+                    i += '<div class="text-md border-b-2 mb-3">Llamada en curso</div>';
                 } else if (item.status === 'holding') {
-                    i += '<div class="text-sm border-b-2 mb-3">Llamada en espera</div>';
+                    i += '<div class="text-md border-b-2 mb-3">Llamada en espera</div>';
                 } else {
-                    i += '<div class="text-sm border-b-2 mb-3">Llamada entrante</div>';
+                    i += '<div class="text-md border-b-2 mb-3">Llamada entrante</div>';
                 }
             } else {
                 if (item.status === 'resumed' || item.status === 'answered') {
-                    i += '<div class="text-sm border-b-2 mb-3">Llamada en curso</div>';
+                    i += '<div class="text-md border-b-2 mb-3">Llamada en curso</div>';
                 } else if (item.status === 'holding') {
-                    i += '<div class="text-sm border-b-2 mb-3">Llamada en espera</div>';
+                    i += '<div class="text-md border-b-2 mb-3">Llamada en espera</div>';
                 } else {
-                    i += '<div class="text-sm border-b-2 mb-3">Llamada saliente</div>';
+                    i += '<div class="text-md border-b-2 mb-3">Llamada saliente</div>';
                 }
             }
             i += '<div class="clearfix"><div class="pull-left">';
@@ -351,13 +351,13 @@ $(document).ready(function () {
                 i += '<div class="bg-gray-300 w-full flex justify-end absolute bottom-[0%]">';
 
                 if (item.status === 'ringing' && item.flow === 'incoming') {
-                    i += '<button class="btn btn-xs btn-success btnCall rounded-none" title="Contestar"><i class="fa fa-phone"></i></button>';
+                    i += '<button class="btn btn-md btn-success btnCall rounded-none" title="Contestar"><i class="fa fa-phone"></i></button>';
                 } else {
-                    i += '<button class="btn btn-xs btnHoldResume rounded-none" title="Espera"><i class="fa fa-pause"></i></button>';
-                    i += '<button class="btn btn-xs btnTransfer rounded-none" title="Transferir"><i class="fa fa-random"></i></button>';
-                    i += '<button class="btn btn-xs btnMute rounded-none" title="Mutear"><i class="fa fa-fw fa-microphone"></i></button>';
+                    i += '<button class="btn btn-md btnHoldResume rounded-none" title="Espera"><i class="fa fa-pause"></i></button>';
+                    i += '<button class="btn btn-md btnTransfer rounded-none" title="Transferir"><i class="fa fa-random"></i></button>';
+                    i += '<button class="btn btn-md btnMute rounded-none" title="Mutear"><i class="fa fa-fw fa-microphone"></i></button>';
                 }
-                i += '<button class="btn btn-xs btn-danger btnHangUp rounded-none" title="Colgar"><i class="fa fa-phone transform rotate-[138deg]"></i></button>';
+                i += '<button class="btn btn-md btn-danger btnHangUp rounded-none" title="Colgar"><i class="fa fa-phone transform rotate-[138deg]"></i></button>';
                 i += '</div>';
                 i += '</div>';
                 $('#call-section').append(i);
@@ -518,6 +518,7 @@ $(document).ready(function () {
 
             if (!s.isMuted) {
                 s.mute();
+
             } else {
                 s.unmute();
             }
@@ -634,13 +635,13 @@ $(document).ready(function () {
     });
 
     ctxSip.phone.on('registrationFailed', function (e) {
-        ctxSip.setError(true, 'Registration Error.', 'An Error occurred registering your phone. Check your settings.');
-        ctxSip.setStatus("Error: Registration Failed");
+        ctxSip.setError(true, 'Error de registro.', 'Un error ocurrio registrando tu telefono. Consulta con el personal.');
+        ctxSip.setStatus("Error: Registro fallido");
     });
 
     ctxSip.phone.on('unregistered', function (e) {
-        ctxSip.setError(true, 'Registration Error.', 'An Error occurred registering your phone. Check your settings.');
-        ctxSip.setStatus("Error: Registration Failed");
+        ctxSip.setError(true, 'Error de registro.', 'Un error ocurrio registrando tu telefono. Consulta con el personal.');
+        ctxSip.setStatus("Error: Registro fallido");
     });
 
     ctxSip.phone.on('invite', function (incomingSession) {
@@ -717,6 +718,17 @@ $(document).ready(function () {
 
     $('#call-section').delegate('.sip-logitem .btnMute', 'click', function (event) {
         var sessionid = $(this).closest('.sip-logitem').data('sessionid');
+        var $button = $(this);
+        var currentState = $button.data('currentState') || 'on';
+        if (currentState === 'off') {
+            // Change the button's color to 'green' when it's in the 'off' state
+            $button.css('color', 'black');
+            $button.data('currentState', 'on');
+        } else {
+            // Change the button's color to 'red' when it's in the 'on' state
+            $button.css('color', 'red');
+            $button.data('currentState', 'off');
+        }
         ctxSip.phoneMuteButtonPressed(sessionid);
         return false;
     });

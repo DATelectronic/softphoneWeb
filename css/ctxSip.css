@@ -122,7 +122,8 @@ body {
 
 #sipClient .sip-logitem {
   padding: 0;
-  padding-top: 4px;
+  /* padding-top: 4px; */
+  margin-bottom: 5px;
 }
 
 #sipClient #numDisplay::-webkit-input-placeholder {

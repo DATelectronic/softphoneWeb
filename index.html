@@ -21,7 +21,37 @@
                         Your browser does not support SVGs.
                     </object> CorusPhone Beta v0.1</div>
                 <div class="w-full px-4 py-4 bg-gray-200 primary-shadow relative">
-                    <div class="w-full flex gap-[5.3rem] mb-1">
+                    <div class="w-full self-center flex gap-3 mb-2">
+                        <div class="flex">
+                            <div class="mr-1">
+                                <div class="rounded-[50%] bg-slate-400 h-11 w-11 flex justify-center">
+                                    <i class="fa fa-user text-3xl text-white self-center"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-400">Cuenta Registrada</div>
+                                <div class="flex">
+
+                                    <p id="agent"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="mr-1">
+                                <div class="rounded-[50%] bg-slate-400 h-11 w-11 flex justify-center">
+                                    <i class="fa fa-phone-square text-3xl text-white self-center"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-400">Anexo</div>
+                                <div class="flex">
+
+                                    <p id="anexo">100</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full flex gap-[2.3rem] mb-2">
                         <div class="flex">
                             <div id="status-net" class="rounded-[50%] bg-green-400 h-11 w-11 flex justify-center mr-1">
                             </div>
@@ -32,49 +62,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="">
-                            <div class="text-sm text-gray-400">Log</div>
-                            <div class="flex">
-                                <div id="txtRegStatus"></div>
-                                <div id="txtCallStatus" class="pull-right">&nbsp;</div>
+                        <!-- <div class="flex w-full"> -->
+                        <div class="flex">
+                            <div id="btnVol" data-toggle="dropdown"
+                                class="inline-flex items-center justify-center mb-2 rounded-none h-full"
+                                data-primary="green-400" data-rounded="rounded-2xl" data-primary-reset="{}">
+                                <i class="fa fa-fw fa-volume-up text-3xl text-black"></i>
                             </div>
+                            <div class="inline-flex items-center">
+                                <input class="h-[5px]" type="range" min="0" max="100" value="100" step="1"
+                                    id="sldVolume" title="Ajustar volumen" />
+                            </div>
+
                         </div>
+                        <!-- </div> -->
                     </div>
                     <div class="w-full gap-4">
-                        <div class="w-full self-center flex gap-0.5">
-                            <div class="flex">
-                                <div class="mr-1">
-                                    <div class="rounded-[50%] bg-slate-400 h-11 w-11 flex justify-center">
-                                        <i class="fa fa-user text-3xl text-white self-center"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="text-sm text-gray-400">Cuenta Registrada</div>
-                                    <div class="flex">
-
-                                        <p id="agent"></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex">
-                                <div class="flex">
-                                    <!-- <button class="btn btn-lg btn-primary dropdown-toggle w-full" id="btnVol"
-                                        title="Volume">
-                                        <i class="fa fa-fw fa-volume-up"></i>
-                                    </button> -->
-                                    <div id="btnVol" data-toggle="dropdown"
-                                        class="inline-flex items-center justify-center px-3 py-3 mb-2 rounded-none h-full"
-                                        data-primary="green-400" data-rounded="rounded-2xl" data-primary-reset="{}">
-                                        <i class="fa fa-fw fa-volume-up text-3xl text-black"></i>
-                                    </div>
-                                    <div class="inline-flex items-center w-28">
-                                        <input class="h-[5px]" type="range" min="0" max="100" value="100" step="1"
-                                            id="sldVolume" />
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
                         <div id="call-section" class="w-full pb-2"></div>
                         <div class="flex w-full justify-center" id="input-section">
                             <!-- <button class="btn btn-lg btn-primary w-1/6" title="Show Keypad">
@@ -83,11 +86,12 @@
                             <div class="rounded-md flex 3/5 primary-shadow relative overflow-hidden">
                                 <input type="text" name="number" id="numDisplay"
                                     class=" form-control text-center input-lg w-5/6 text-[15px] rounded-none rounded-l-md"
-                                    value="" placeholder="Ingrese Numero" autocomplete="off" />
+                                    value="" placeholder="Ingrese número" autocomplete="off" />
                                 <div class="input-group-btn input-group-btn-sm w-1/6">
                                     <button
                                         class="btnCall inline-flex items-center justify-center w-full px-6 py-3 mb-2 text-lg text-white bg-[#ccc] hover:bg-[#999] rounded-none h-full"
-                                        data-primary="green-400" data-rounded="rounded-2xl" data-primary-reset="{}">
+                                        data-primary="green-400" data-rounded="rounded-2xl" data-primary-reset="{}"
+                                        title="Llamar">
                                         <i class="fa fa-phone text-4xl text-green-500"></i>
                                         <!-- <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg> -->
                                     </button>
@@ -143,7 +147,7 @@
                         </div>
                         <div class="container my-1 w-full border-t-2">
                             <ul class="nav nav-tabs flex justify-center border-none">
-                                <li class="active"><a data-toggle="tab" href="#defaultTab"><svg
+                                <li class="active"><a data-toggle="tab" href="#defaultTab" title="Botonera"><svg
                                             xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                             viewBox="0 0 200 200">
                                             <!-- First Row -->
@@ -163,8 +167,9 @@
                                         </svg>
                                     </a>
                                 </li>
-                                <li><a data-toggle="tab" href="#additionalTab"><svg xmlns="http://www.w3.org/2000/svg"
-                                            width="30" height="30" viewBox="0 0 100 100">
+                                <li><a data-toggle="tab" href="#additionalTab" title="Historial"><svg
+                                            xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            viewBox="0 0 100 100">
                                             <!-- Clock Face -->
                                             <circle cx="50" cy="50" r="40" stroke="black" stroke-width="4"
                                                 fill="none" />
@@ -182,7 +187,7 @@
 
                     </div>
                     <div class="w-full flex justify-end p-3">
-                        <img class="h-8" src="./img/logos_Frontal Telectronic-01[570].png" alt="">
+                        <img class=" h-12" src="./img/logos_Frontal Telectronic-01[570].png" alt="">
                     </div>
                 </div>
             </div>
@@ -206,37 +211,6 @@
         </div>
 
     </div>
-    <!-- <div class="w-72 list-group-item sip-logitem clearfix bg-white primary-shadow relative border-none rounded-md overflow-hidden"
-        data-uri="sip:103@debian" data-sessionid="7968sadj7" title="">
-        <div class="w-full px-2 pt-2">
-            <div class="text-sm border-b-2 mb-3">Llamada entrante</div>
-            <div class="clearfix">
-                <div class="pull-left"><i class="fa fa-fw fa-phone fa-fw"></i> <strong>103</strong><br><small>09/29
-                        01:58:22
-                        pm</small></div>
-                <div class="pull-right text-right"><em>”User Four”</em><br><span id="7968sadj7"></span></div>
-            </div>
-        </div>
-        <div class="relative h-12"></div>
-        <div class="bg-gray-300 w-full flex justify-end absolute bottom-[0%]"><button
-                class="btn btn-md rounded-none btn-success btnCall" title="Contestar"><i
-                    class="fa fa-phone"></i></button><button class="btn btn-md rounded-none btn-danger btnHangUp"
-                title="Colgar"><i class="fa fa-phone transform rotate-[138deg]"></i></button></div>
-    </div>
-    <div class="w-72 list-group-item sip-logitem clearfix list-group-item-info primary-shadow" data-uri="sip:103@debian"
-        data-sessionid="2i02gtzsg" title="Double Click to Call">
-        <div class="clearfix">
-            <div class="pull-left"><i class="fa fa-fw fa-phone-square fa-fw"></i> <strong>103</strong><br><small>09/29
-                    02:44:31 pm</small></div>
-            <div class="pull-right text-right"><em>”User Four”</em><br><span id="2i02gtzsg"><span>00:09</span></span>
-            </div>
-        </div>
-        <div class="btn-group btn-group-xs pull-right"><button class="btn btn-xs btn-primary btnHoldResume"
-                title="Espera"><i class="fa fa-pause"></i></button><button class="btn btn-xs btn-info btnTransfer"
-                title="Transferir"><i class="fa fa-random"></i></button><button class="btn btn-xs btn-warning btnMute"
-                title="Mutear"><i class="fa fa-fw fa-microphone"></i></button><button
-                class="btn btn-xs btn-danger btnHangUp" title="Colgar"><i class="fa fa-stop"></i></button></div>
-    </div> -->
     <footer class="footer flex">
         <p class="footer-text">
             <img src="./img/logos_telectronic-02[573].png" class="h-20">
