@@ -14,7 +14,6 @@
 
 <body id="sipClient">
     <div class="container-fluid py-9">
-
         <div style="display: flex !important; gap: 15px; justify-content: center;">
             <div class="bg-gray-300 rounded-sm">
                 <div class="w-full p-3 flex gap-2"> <object data="corus.svg" type="image/svg+xml">
@@ -50,6 +49,20 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- <div class="flex">
+                            <div class="mr-1">
+                                <button id="detour" class="rounded-[50%] bg-slate-400 h-11 w-11 flex justify-center">
+                                    <i class="fa fa-arrow-right text-3xl text-white self-center"></i>
+                                </button>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-400">Desvio</div>
+                                <div class="flex">
+
+                                    <p id="anex-detour"></p>
+                                </div>
+                            </div>
+                        </div> -->
                     </div>
                     <div class="w-full flex gap-[2.3rem] mb-2">
                         <div class="flex">
@@ -211,15 +224,6 @@
         </div>
 
     </div>
-    <footer class="footer flex">
-        <p class="footer-text">
-            <img src="./img/logos_telectronic-02[573].png" class="h-20">
-            Desarrollado por Telectronic&nbsp;2023
-            <span class="footer-span"></span>
-            &copy;&nbsp;Todos&nbsp;los&nbsp;derechos&nbsp;reservados
-        </p>
-    </footer>
-    <!-- <footer class="w-full absolute bottom-[5%] flex justify-center text-white"><p>Softphone Desarrollado Por Telectronic</p> </footer> -->
     <audio id="ringtone" src="sounds/incoming.mp3" loop></audio>
     <audio id="ringbacktone" src="sounds/outgoing.mp3" loop></audio>
     <audio id="dtmfTone" src="sounds/dtmf.mp3"></audio>

@@ -24,8 +24,10 @@ $(document).ready(function () {
         config: {
             password: "1234",
             displayName: param1,
-            uri: "sip:" + param1 + "@172.16.200.37",
-            wsServers: "wss://172.16.200.37:8089/ws",
+            // uri: "sip:" + param1 + "@172.16.200.37",
+            uri: "sip:" + param1 + "@192.168.1.87",
+            // wsServers: "wss://172.16.200.37:8089/ws",
+            wsServers: "wss://192.168.1.87:8089/ws",
             registerExpires: 30,
             traceSip: true,
             log: {
@@ -126,9 +128,9 @@ $(document).ready(function () {
 
             newSess.on('accepted', function (e) {
                 // If there is another active call, hold it
-                if (ctxSip.callActiveID && ctxSip.callActiveID !== newSess.ctxid) {
-                    ctxSip.phoneHoldButtonPressed(ctxSip.callActiveID);
-                }
+                // if (ctxSip.callActiveID && ctxSip.callActiveID !== newSess.ctxid) {
+                //     ctxSip.phoneHoldButtonPressed(ctxSip.callActiveID);
+                // }
 
                 ctxSip.stopRingbackTone();
                 ctxSip.stopRingTone();
@@ -251,7 +253,8 @@ $(document).ready(function () {
                     clid: log.clid,
                     uri: log.uri,
                     start: log.time,
-                    flow: session.direction
+                    flow: session.direction,
+                    innerCall: session.innerCall,
                 };
             }
 
@@ -345,7 +348,7 @@ $(document).ready(function () {
             i += '<i class="fa fa-fw ' + callIcon + ' fa-fw"></i> <strong>' + ctxSip.formatPhone(item.uri) + '</strong><br><small>' + moment(item.start).format('MM/DD hh:mm:ss a') + '</small>';
             i += '</div>';
             i += '<div class="pull-right text-right"><em>' + item.clid + '</em><br>' + callLength + '</div></div></div>';
-
+            // console.log(item.innerCall)
             if (callActive) {
                 i += '<div class="relative h-14"></div>';
                 i += '<div class="bg-gray-300 w-full flex justify-end absolute bottom-[0%]">';
@@ -353,8 +356,13 @@ $(document).ready(function () {
                 if (item.status === 'ringing' && item.flow === 'incoming') {
                     i += '<button class="btn btn-md btn-success btnCall rounded-none" title="Contestar"><i class="fa fa-phone"></i></button>';
                 } else {
-                    i += '<button class="btn btn-md btnHoldResume rounded-none" title="Espera"><i class="fa fa-pause"></i></button>';
-                    i += '<button class="btn btn-md btnTransfer rounded-none" title="Transferir"><i class="fa fa-random"></i></button>';
+                    if (item.innerCall) {
+                        i += '<button class="btn btn-md btnSendTransfer rounded-none" title="Completar Transferencia"><i class="fa fa-share"></i></button>';
+                    } else {
+                        i += '<button class="btn btn-md btnHoldResume rounded-none" title="Espera"><i class="fa fa-pause"></i></button>';
+                        i += '<button class="btn btn-md btnTransfer rounded-none" title="Transferir"><i class="fa fa-random"></i></button>';
+                        i += '<button class="btn btn-md btnAddBuddy rounded-none" title="Agregar persona"><i class="fa fa-plus"></i></button>';
+                    }
                     i += '<button class="btn btn-md btnMute rounded-none" title="Mutear"><i class="fa fa-fw fa-microphone"></i></button>';
                 }
                 i += '<button class="btn btn-md btn-danger btnHangUp rounded-none" title="Colgar"><i class="fa fa-phone transform rotate-[138deg]"></i></button>';
@@ -455,9 +463,105 @@ $(document).ready(function () {
 
             var s = ctxSip.Sessions[sessionid],
                 target = window.prompt('Ingrese el numero', '');
+            s.hold();
+            try {
+                var remoteRenderS2 = document.createElement('audio');
+                remoteRenderS2.autoplay = true;
+                remoteRenderS2.id = 'audioRemoteS2'; // Adjust the ID as needed
+                document.body.appendChild(remoteRenderS2);
+                var s2 = ctxSip.phone.invite(target, {
+                    media: {
+                        stream: ctxSip.Stream,
+                        constraints: { audio: true, video: false },
+                        render: {
+                            remote: remoteRenderS2
+                        },
+                        RTCConstraints: { "optional": [{ 'DtlsSrtpKeyAgreement': 'true' }] }
+                    }
+                });
+                s2.direction = 'outgoing';
+                s2.innerCall = true;
+                // s2.holdSession = s;
+                ctxSip.newSession(s2);
+                // console.log(s2);
+                // call
+                s2.on('accepted', function () {
+                    // Once the new call (s2) is accepted, you can proceed with the transfer
+                    function handleTransferClick() {
+                        try {
+                            s2.refer(s);
+                            ctxSip.setCallSessionStatus('<i>Transferiendo la llamada...</i>');
+                            remoteRenderS2.remove();
+                        } catch (error) {
+                            console.log(error);
+                        }
+                    }
+                    s2.mute();
+                    s2.unmute();
+                    $(".btnSendTransfer").one("click", handleTransferClick);
+                });
+            } catch (e) {
+                throw (e);
+            }
+        },
+        addBuddy: function (sessionid) {
+            var s = ctxSip.Sessions[sessionid];
+            var target = window.prompt('Ingrese el numero para agregar', '');
+            var remoteRenderS2 = document.createElement('audio');
+            remoteRenderS2.autoplay = true;
+            remoteRenderS2.id = 'audioRemoteS2'; // Adjust the ID as needed
+            document.body.appendChild(remoteRenderS2);
+            try {
+                // Create a new call session for Call B (the buddy)
+                var s2 = ctxSip.phone.invite(target, {
+                    media: {
+                        stream: mixAudioStreams(ctxSip.Stream, s.getRemoteStreams()[0]),
+                        constraints: { audio: true, video: false },
+                        render: {
+                            remote: remoteRenderS2
+                        },
+                        RTCConstraints: { "optional": [{ 'DtlsSrtpKeyAgreement': 'true' }] }
+                    }
+                });
+                s2.direction = 'outgoing';
+                ctxSip.newSession(s2);
+            } catch (e) {
+                throw (e);
+            }
+            s2.on('accepted', function () {
+                console.log(s)
+                // console.log();
+                console.log(s.getLocalStreams());
+                var newAudioStream = mixAudioStreams(ctxSip.Stream, s2.getRemoteStreams()[0]);
+                // Add or remove streams here
+                s.mediaHandler.peerConnection.removeStream(s.getLocalStreams()[0])
+                s.mediaHandler.peerConnection.addStream(newAudioStream)
+                console.log(s.getLocalStreams());
+            });
 
-            ctxSip.setCallSessionStatus('<i>Transferiendo la llamada...</i>');
-            s.refer(target);
+            function mixAudioStreams(stream1, stream2) {
+                const audioContext = new AudioContext();
+
+                // Create MediaStreamAudioSourceNode for stream1
+                const stream1Source = audioContext.createMediaStreamSource(stream1);
+
+                // Create MediaStreamAudioSourceNode for stream2 (audio from 's' session)
+                const stream2Source = audioContext.createMediaStreamSource(stream2);
+
+                // Create a GainNode for mixing
+                const mixer = audioContext.createGain();
+                mixer.gain.value = 0.5; // Adjust this value to set the mix ratio.
+
+                // Connect sources and mixer
+                stream1Source.connect(mixer);
+                stream2Source.connect(mixer);
+
+                // Create a new MediaStream from the mixed audio
+                const mixedStream = audioContext.createMediaStreamDestination();
+                mixer.connect(mixedStream);
+
+                return mixedStream.stream;
+            }
         },
 
         sipHangUp: function (sessionid) {
@@ -713,6 +817,11 @@ $(document).ready(function () {
     $('#call-section').delegate('.sip-logitem .btnTransfer', 'click', function (event) {
         var sessionid = $(this).closest('.sip-logitem').data('sessionid');
         ctxSip.sipTransfer(sessionid);
+        return false;
+    });
+    $('#call-section').delegate('.sip-logitem .btnAddBuddy', 'click', function (event) {
+        var sessionid = $(this).closest('.sip-logitem').data('sessionid');
+        ctxSip.addBuddy(sessionid);
         return false;
     });
 
