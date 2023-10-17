@@ -25,9 +25,9 @@ $(document).ready(function () {
             password: "1234",
             displayName: param1,
             // uri: "sip:" + param1 + "@172.16.200.37",
-            uri: "sip:" + param1 + "@192.168.1.87",
+            uri: "sip:" + param1 + "@192.168.1.85",
             // wsServers: "wss://172.16.200.37:8089/ws",
-            wsServers: "wss://192.168.1.87:8089/ws",
+            wsServers: "wss://192.168.1.85:8089/ws",
             registerExpires: 30,
             traceSip: true,
             log: {
@@ -531,12 +531,13 @@ $(document).ready(function () {
             s2.on('accepted', function () {
                 console.log(s)
                 // console.log();
-                console.log(s.getLocalStreams());
+                // console.log(s.getLocalStreams());
                 var newAudioStream = mixAudioStreams(ctxSip.Stream, s2.getRemoteStreams()[0]);
-                // Add or remove streams here
-                s.mediaHandler.peerConnection.removeStream(s.getLocalStreams()[0])
-                s.mediaHandler.peerConnection.addStream(newAudioStream)
-                console.log(s.getLocalStreams());
+                var pc = s.mediaHandler.peerConnection;
+                const currentSenders = pc.getSenders();
+                const currentAudioSender = currentSenders.find((s) => s.track.kind === 'audio');
+                currentAudioSender.replaceTrack(newAudioStream.getAudioTracks()[0]);
+                // console.log(pc)
             });
 
             function mixAudioStreams(stream1, stream2) {

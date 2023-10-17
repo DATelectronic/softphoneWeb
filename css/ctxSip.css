@@ -167,3 +167,6 @@ li.active>a:hover {
   cursor: default;
   background-color: #fff;
 }
+.panel{
+  margin: 0;
+}
