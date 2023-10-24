@@ -13,9 +13,10 @@
 </head>
 
 <body id="sipClient">
+    .
     <div class="container-fluid py-9">
         <div style="display: flex !important; gap: 15px; justify-content: center;">
-            <div class="bg-gray-300 w-full rounded-sm overflow-hidden">
+            <div class="bg-gray-300 w-full rounded-sm">
                 <div class="w-full p-3 flex gap-2"> <object data="corus.svg" type="image/svg+xml">
                         Your browser does not support SVGs.
                     </object> CorusPhone Beta v0.1</div>
@@ -23,72 +24,56 @@
                     <div class="w-1/3">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h4 class="text-muted panel-title">Contactos<span class="pull-right"><i
-                                            class="fa fa-trash sipLogClear cursor-pointer"
-                                            title="Limpiar llamadas"></i></span></h4>
+                                <h4 class="text-muted panel-title">Anexos disponibles</h4>
                             </div>
-                            <div class="list-group">
+                            <div id="sip-anexs" class="list-group">
 
                             </div>
                         </div>
                     </div>
                     <div class="w-1/3 gap-4">
-                        <div class="w-full self-center flex gap-3 mb-2">
+                        <div class="w-full self-center flex justify-center gap-3 mb-2">
                             <div class="flex">
                                 <div class="mr-1">
-                                    <div class="rounded-[50%] bg-slate-400 h-11 w-11 flex justify-center">
-                                        <i class="fa fa-user text-3xl text-white self-center"></i>
+                                    <div class="rounded-[50%] bg-slate-400 h-14 w-14 flex justify-center">
+                                        <i class="fa fa-user text-4xl text-white self-center"></i>
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="text-sm text-gray-400">Cuenta Registrada</div>
+                                    <div class="text-lg text-gray-400">Cuenta Registrada</div>
                                     <div class="flex">
 
-                                        <p id="agent"></p>
+                                        <p id="agent" class="text-2xl"></p>
                                     </div>
                                 </div>
                             </div>
                             <div class="flex">
                                 <div class="mr-1">
-                                    <div class="rounded-[50%] bg-slate-400 h-11 w-11 flex justify-center">
-                                        <i class="fa fa-phone-square text-3xl text-white self-center"></i>
+                                    <div class="rounded-[50%] bg-slate-400 h-14 w-14 flex justify-center">
+                                        <i class="fa fa-phone-square text-4xl text-white self-center"></i>
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="text-sm text-gray-400">Anexo</div>
+                                    <div class="text-lg text-gray-400">Anexo</div>
                                     <div class="flex">
 
-                                        <p id="anexo">100</p>
+                                        <p id="anexo" class="text-2xl">100</p>
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div class="flex">
-                            <div class="mr-1">
-                                <button id="detour" class="rounded-[50%] bg-slate-400 h-11 w-11 flex justify-center">
-                                    <i class="fa fa-arrow-right text-3xl text-white self-center"></i>
-                                </button>
-                            </div>
-                            <div>
-                                <div class="text-sm text-gray-400">Desvio</div>
-                                <div class="flex">
-
-                                    <p id="anex-detour"></p>
-                                </div>
-                            </div>
-                        </div> -->
-                        </div>
-                        <div class="w-full flex gap-[2.3rem] mb-2">
                             <div class="flex">
                                 <div id="status-net"
-                                    class="rounded-[50%] bg-green-400 h-11 w-11 flex justify-center mr-1">
+                                    class="rounded-[50%] bg-green-400 h-14 w-14 flex justify-center mr-1">
                                 </div>
                                 <div class="">
-                                    <div class="text-sm text-gray-400">Estado</div>
+                                    <div class="text-lg text-gray-400">Estado</div>
                                     <div class="flex">
-                                        <div id="txtRegStatus"></div>
+                                        <div id="txtRegStatus" class="text-2xl"></div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="w-full flex justify-center gap-[2.3rem] mb-2">
                             <!-- <div class="flex w-full"> -->
                             <div class="flex">
                                 <div id="btnVol" data-toggle="dropdown"
@@ -100,7 +85,19 @@
                                     <input class="h-[5px]" type="range" min="0" max="100" value="100" step="1"
                                         id="sldVolume" title="Ajustar volumen" />
                                 </div>
-
+                            </div>
+                            <div class="flex">
+                                <div class="mr-1">
+                                    <div class="rounded-[50%] bg-slate-400 h-14 w-14 flex justify-center">
+                                        <i class="fa fa-clipboard text-4xl text-white self-center"></i>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="text-lg text-gray-400">Log</div>
+                                    <div class="flex ml-1">
+                                        <div id="txtCallStatus" class="pull-right text-2xl">&nbsp;</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div id="call-section" class="w-full pb-2 h-60">
@@ -131,13 +128,48 @@
                             </div> -->
                         </div>
                         <div class="flex w-full justify-center" id="input-section">
-                            <div class="rounded-md flex 3/5 primary-shadow relative overflow-hidden">
+
+                            <div class="rounded-md flex 3/5 primary-shadow relative">
+                                <div class="input-group-btn h-full w-auto">
+                                    <button
+                                        class="dropdown-toggle inline-flex items-center justify-center w-full px-6 py-3 mb-2 text-lg text-white bg-[#ccc] hover:bg-[#999] rounded-l-md h-full"
+                                        data-toggle="dropdown" title="Show Keypad">
+                                        <i class="fa fa-th text-4xl text-blue-500"></i>
+                                    </button>
+                                    <div id="sip-dialpad" class="dropdown-menu left-[40%]">
+                                        <button type="button" class="btn btn-default digit"
+                                            data-digit="1">1<span>&nbsp;</span></button>
+                                        <button type="button" class="btn btn-default digit"
+                                            data-digit="2">2<span>ABC</span></button>
+                                        <button type="button" class="btn btn-default digit"
+                                            data-digit="3">3<span>DEF</span></button>
+                                        <button type="button" class="btn btn-default digit"
+                                            data-digit="4">4<span>GHI</span></button>
+                                        <button type="button" class="btn btn-default digit"
+                                            data-digit="5">5<span>JKL</span></button>
+                                        <button type="button" class="btn btn-default digit"
+                                            data-digit="6">6<span>MNO</span></button>
+                                        <button type="button" class="btn btn-default digit"
+                                            data-digit="7">7<span>PQRS</span></button>
+                                        <button type="button" class="btn btn-default digit"
+                                            data-digit="8">8<span>TUV</span></button>
+                                        <button type="button" class="btn btn-default digit"
+                                            data-digit="9">9<span>WXYZ</span></button>
+                                        <button type="button" class="btn btn-default digit"
+                                            data-digit="*">*<span>&nbsp;</span></button>
+                                        <button type="button" class="btn btn-default digit"
+                                            data-digit="0">0<span>+</span></button>
+                                        <button type="button" class="btn btn-default digit"
+                                            data-digit="#">#<span>&nbsp;</span></button>
+                                        <div class="clearfix">&nbsp;</div>
+                                    </div>
+                                </div>
                                 <input type="text" name="number" id="numDisplay"
-                                    class=" form-control text-center input-lg w-5/6 text-[15px] rounded-none rounded-l-md"
-                                    value="" placeholder="Ingrese número" autocomplete="off" />
+                                    class=" form-control text-center input-lg w-4/6 text-[15px] rounded-none" value=""
+                                    placeholder="Ingrese número" autocomplete="off" />
                                 <div class="input-group-btn input-group-btn-sm w-1/6">
                                     <button
-                                        class="btnCall inline-flex items-center justify-center w-full px-6 py-3 mb-2 text-lg text-white bg-[#ccc] hover:bg-[#999] rounded-none h-full"
+                                        class="btnCall inline-flex items-center justify-center w-full px-6 py-3 mb-2 text-lg text-white bg-[#ccc] hover:bg-[#999] rounded-r-md h-full"
                                         data-primary="green-400" data-rounded="rounded-2xl" data-primary-reset="{}"
                                         title="Llamar">
                                         <i class="fa fa-phone text-4xl text-green-500"></i>
@@ -151,9 +183,7 @@
                     <div class="w-1/3">
                         <div id="sip-log" class="panel panel-default">
                             <div class="panel-heading">
-                                <h4 class="text-muted panel-title">Historial de llamadas<span class="pull-right"><i
-                                            class="fa fa-trash sipLogClear cursor-pointer"
-                                            title="Limpiar llamadas"></i></span></h4>
+                                <h4 class="text-muted panel-title">Ultimas llamadas<span class="pull-right"></h4>
                             </div>
                             <div id="sip-logitems" class="list-group">
 
@@ -161,108 +191,26 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div id="phoneUI">
-                    <div id="sip-dialpad" class="bg-white">
-                        <div class="tab-content h-[315px] my-1">
-                            <div id="defaultTab" class="tab-pane fade in active">
-                                <div class="w-full flex justify-center flex-wrap">
-                                    <button type="button" class="btn btn-default digit"
-                                        data-digit="1">1<span>&nbsp;</span></button>
-                                    <button type="button" class="btn btn-default digit"
-                                        data-digit="2">2<span>ABC</span></button>
-                                    <button type="button" class="btn btn-default digit"
-                                        data-digit="3">3<span>DEF</span></button>
-                                    <button type="button" class="btn btn-default digit"
-                                        data-digit="4">4<span>GHI</span></button>
-                                    <button type="button" class="btn btn-default digit"
-                                        data-digit="5">5<span>JKL</span></button>
-                                    <button type="button" class="btn btn-default digit"
-                                        data-digit="6">6<span>MNO</span></button>
-                                    <button type="button" class="btn btn-default digit"
-                                        data-digit="7">7<span>PQRS</span></button>
-                                    <button type="button" class="btn btn-default digit"
-                                        data-digit="8">8<span>TUV</span></button>
-                                    <button type="button" class="btn btn-default digit"
-                                        data-digit="9">9<span>WXYZ</span></button>
-                                    <button type="button" class="btn btn-default digit"
-                                        data-digit="*">*<span>&nbsp;</span></button>
-                                    <button type="button" class="btn btn-default digit"
-                                        data-digit="0">0<span>+</span></button>
-                                    <button type="button" class="btn btn-default digit"
-                                        data-digit="#">#<span>&nbsp;</span></button>
-                                </div>
-                            </div>
-                            <div id="additionalTab" class="tab-pane fade py-3">
-                                <div id="sip-log" class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="text-muted panel-title">Historial de llamadas<span
-                                                class="pull-right"><i class="fa fa-trash sipLogClear cursor-pointer"
-                                                    title="Limpiar llamadas"></i></span></h4>
-                                    </div>
-                                    <div id="sip-logitems" class="list-group">
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="container my-1 w-full border-t-2">
-                            <ul class="nav nav-tabs flex justify-center border-none">
-                                <li class="active"><a data-toggle="tab" href="#defaultTab" title="Botonera"><svg
-                                            xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-                                            viewBox="0 0 200 200">
-                                            <circle cx="50" cy="50" r="15" fill="black" />
-                                            <circle cx="100" cy="50" r="15" fill="black" />
-                                            <circle cx="150" cy="50" r="15" fill="black" />
-
-                                            <circle cx="50" cy="100" r="15" fill="black" />
-                                            <circle cx="100" cy="100" r="15" fill="black" />
-                                            <circle cx="150" cy="100" r="15" fill="black" />
-
-                                            <circle cx="50" cy="150" r="15" fill="black" />
-                                            <circle cx="100" cy="150" r="15" fill="black" />
-                                            <circle cx="150" cy="150" r="15" fill="black" />
-                                        </svg>
-                                    </a>
-                                </li>
-                                <li><a data-toggle="tab" href="#additionalTab" title="Historial"><svg
-                                            xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-                                            viewBox="0 0 100 100">
-                                            <circle cx="50" cy="50" r="40" stroke="black" stroke-width="4"
-                                                fill="none" />
-                                            <line x1="50" y1="50" x2="50" y2="30" stroke="black" stroke-width="4" />
-                                            <line x1="50" y1="50" x2="70" y2="50" stroke="black" stroke-width="4" />
-                                        </svg>
-
-                                    </a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="flex">
-
-                    </div>
-                    <div class="w-full flex justify-end p-3">
-                        <img class=" h-12" src="./img/logos_Frontal Telectronic-01[570].png" alt="">
-                    </div>
-                </div> -->
-            </div>
-
-            <div class="well-sip">
             </div>
         </div>
-        <div class="modal fade" id="mdlError" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
-            data-keyboard="false">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Sip Error</h4>
-                    </div>
-                    <div class="modal-body text-center text-danger">
-                        <h3><i class="fa fa-3x fa-ban"></i></h3>
-                        <p class="lead">Sip registration failed. No calls can be handled.</p>
-                    </div>
+
+        <div class="well-sip">
+        </div>
+    </div>
+    <div class="modal fade" id="mdlError" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
+        data-keyboard="false">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Sip Error</h4>
+                </div>
+                <div class="modal-body text-center text-danger">
+                    <h3><i class="fa fa-3x fa-ban"></i></h3>
+                    <p class="lead">Sip registration failed. No calls can be handled.</p>
                 </div>
             </div>
         </div>
+    </div>
 
     </div>
     <audio id="ringtone" src="sounds/incoming.mp3" loop></audio>
@@ -273,7 +221,6 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="scripts/moment.js/moment.min.js"></script>
-
     <script type="text/javascript" src="scripts/SIP.js/sip.min.js"></script>
     <script type="text/javascript" src="scripts/app.js"></script>
 

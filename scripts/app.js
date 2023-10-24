@@ -25,9 +25,9 @@ $(document).ready(function () {
             password: "1234",
             displayName: param1,
             // uri: "sip:" + param1 + "@172.16.200.37",
-            uri: "sip:" + param1 + "@192.168.1.85",
+            uri: "sip:" + param1 + "@192.168.1.92",
             // wsServers: "wss://172.16.200.37:8089/ws",
-            wsServers: "wss://192.168.1.85:8089/ws",
+            wsServers: "wss://192.168.1.92:8089/ws",
             registerExpires: 30,
             traceSip: true,
             log: {
@@ -168,6 +168,7 @@ $(document).ready(function () {
                     newSess = null;
                     ctxSip.logCall(this, 'ended');
                 }
+                ctxSip.logClear();
             });
 
             newSess.on('bye', function (e) {
@@ -177,12 +178,14 @@ $(document).ready(function () {
                 ctxSip.logCall(newSess, 'ended');
                 ctxSip.callActiveID = null;
                 newSess = null;
+                ctxSip.logClear();
             });
 
             newSess.on('failed', function (e) {
                 ctxSip.stopRingTone();
                 ctxSip.stopRingbackTone();
                 ctxSip.setCallSessionStatus('Terminada');
+                ctxSip.logClear();
             });
 
             newSess.on('rejected', function (e) {
@@ -192,6 +195,7 @@ $(document).ready(function () {
                 ctxSip.callActiveID = null;
                 ctxSip.logCall(this, 'ended');
                 newSess = null;
+                ctxSip.logClear();
             });
 
             ctxSip.Sessions[newSess.ctxid] = newSess;
@@ -224,7 +228,7 @@ $(document).ready(function () {
          */
         setStatus: function (status) {
             // i='<span class="rounded-[50%] bg-green-400 p-3">';
-            i = '<i class="fa fa-signal text-white self-center"></i>';
+            i = '<i class="fa fa-signal text-3xl text-white self-center"></i>';
             $("#status-net").html(i);
             $("#txtRegStatus").html(status);
         },
@@ -782,7 +786,7 @@ $(document).ready(function () {
         return false;
     });
 
-    $('#phoneUI .dropdown-menu').click(function (e) {
+    $('.dropdown-menu').click(function (e) {
         e.preventDefault();
     });
 
