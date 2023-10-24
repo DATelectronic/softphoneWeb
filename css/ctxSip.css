@@ -9,18 +9,8 @@ body {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-.footer {
-  background-color: #454545;
-  color: #ffffff;
-  padding: 15px;
-  position: fixed;
-  width: 100%;
-  bottom: 0;
-  text-align: center;
-}
-
 #sipClient {
-  background-color: #333;
+  background-color: transparent;
   font-size: 13px;
   line-height: 1.42857143;
   /* firefox 19+ */

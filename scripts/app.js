@@ -15,6 +15,7 @@ $(document).ready(function () {
     const param1 = params.get('param1');
     const name = params.get('param2');
     const anexo = params.get('param3');
+    const host = params.get('param4');
 
     $('#agent').text(name);
     $('#anexo').text(anexo);
@@ -25,9 +26,9 @@ $(document).ready(function () {
             password: "1234",
             displayName: param1,
             // uri: "sip:" + param1 + "@172.16.200.37",
-            uri: "sip:" + param1 + "@192.168.1.92",
+            uri: "sip:" + param1 + "@"+host,
             // wsServers: "wss://172.16.200.37:8089/ws",
-            wsServers: "wss://192.168.1.92:8089/ws",
+            wsServers: "wss://"+host+":8089/ws",
             registerExpires: 30,
             traceSip: true,
             log: {
