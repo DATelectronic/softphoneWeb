@@ -206,7 +206,7 @@ $(document).ready(function () {
         // getUser media request refused or device was not present
         getUserMediaFailure: function (e) {
             window.console.error('getUserMedia failed:', e);
-            ctxSip.setError(true, 'Media Error.', 'You must allow access to your microphone.  Check the address bar.', true);
+            // ctxSip.setError(true, 'Media Error.', 'You must allow access to your microphone.  Check the address bar.', true);
         },
 
         getUserMediaSuccess: function (stream) {
@@ -709,7 +709,7 @@ $(document).ready(function () {
         ctxSip.setStatus("Error de conexion");
 
         // disable phone
-        ctxSip.setError(true, 'Websocket Disconnected.', 'An Error occurred connecting to the websocket.');
+        // ctxSip.setError(true, 'Websocket Disconnected.', 'An Error occurred connecting to the websocket.');
 
         // remove existing sessions
         $("#sessions > .session").each(function (i, session) {
@@ -745,12 +745,12 @@ $(document).ready(function () {
     });
 
     ctxSip.phone.on('registrationFailed', function (e) {
-        ctxSip.setError(true, 'Error de registro.', 'Un error ocurrio registrando tu telefono. Consulta con el personal.');
+        // ctxSip.setError(true, 'Error de registro.', 'Un error ocurrio registrando tu telefono. Consulta con el personal.');
         ctxSip.setStatus("Error: Registro fallido");
     });
 
     ctxSip.phone.on('unregistered', function (e) {
-        ctxSip.setError(true, 'Error de registro.', 'Un error ocurrio registrando tu telefono. Consulta con el personal.');
+        // ctxSip.setError(true, 'Error de registro.', 'Un error ocurrio registrando tu telefono. Consulta con el personal.');
         ctxSip.setStatus("Error: Registro fallido");
     });
 
