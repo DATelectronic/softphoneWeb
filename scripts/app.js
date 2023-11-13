@@ -16,6 +16,7 @@ $(document).ready(function () {
     const name = params.get('param2');
     const anexo = params.get('param3');
     const host = params.get('param4');
+    const pass = params.get('param5');
 
     $('#agent').text(name);
     $('#anexo').text(anexo);
@@ -23,7 +24,7 @@ $(document).ready(function () {
     ctxSip = {
 
         config: {
-            password: "1234",
+            password: pass,
             displayName: param1,
             // uri: "sip:" + param1 + "@172.16.200.37",
             uri: "sip:" + param1 + "@"+host,
