@@ -242,7 +242,7 @@ $(document).ready(function () {
          * @param  {string} status Enum 'ringing', 'answered', 'ended', 'holding', 'resumed'
          */
         logCall: function (session, status) {
-
+            console.log(status)
             var log = {
                 clid: session.displayName,
                 uri: session.remoteIdentity.uri.toString(),
@@ -332,7 +332,6 @@ $(document).ready(function () {
 
             i = '<div class=" overflow-hidden border-none list-group-item sip-logitem clearfix ' + callClass + '" data-uri="' + item.uri + '" data-sessionid="' + item.id + '" title="">';
             i += '<div class="w-full px-2 pt-2">';
-            console.log(item.status)
             if (item.flow === 'incoming') {
                 if (item.status === 'resumed' || item.status === 'answered') {
                     i += '<div class="text-md border-b-2 mb-3">Llamada en curso</div>';
@@ -459,7 +458,6 @@ $(document).ready(function () {
                 });
                 s.direction = 'outgoing';
                 ctxSip.newSession(s);
-
             } catch (e) {
                 throw (e);
             }
