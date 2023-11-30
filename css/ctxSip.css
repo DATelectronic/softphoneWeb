@@ -2,9 +2,6 @@ html,
 body {
   min-height: 100vh;
 }
-.sip-logitem.on-hold {
-  background-color: #ffcccc; /* Change this to the desired color */
-}
 .muted , .muted:focus{
   color: red;
 }
@@ -95,8 +92,9 @@ body {
 }
 
 #sipClient #sip-logitems ,#sip-anexs {
-  height: 242px;
-  overflow: auto;
+  min-height: 242px;
+  height: 100%;
+  /* overflow: auto; */
 }
 
 #sipClient #sldVolume {
@@ -126,11 +124,9 @@ body {
 #sipClient #numDisplay::-moz-placeholder {
   color: #bbb;
 }
-/* 
-#sip-log {
-  width: 200px;
-  border-radius: 0;
-} */
+.panel-default{
+  height: 100%;
+}
 
 .btn.active.focus,
 .btn.active:focus,
