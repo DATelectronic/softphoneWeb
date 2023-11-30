@@ -2,7 +2,12 @@ html,
 body {
   min-height: 100vh;
 }
-
+.sip-logitem.on-hold {
+  background-color: #ffcccc; /* Change this to the desired color */
+}
+.muted , .muted:focus{
+  color: red;
+}
 .primary-shadow {
   --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 53%);
   --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
@@ -40,21 +45,23 @@ body {
   color: black;
 }
 #sipClient #sip-dialpad {
-  width: 270px;
-  padding: 16px 20px;
+  width: 230px;
+  padding: 0px;
+  overflow: hidden;
 }
 #sipClient #sip-dialpad .col-xs-4 {
   text-align: center;
 }
 
 #sipClient .digit {
-  height: 66px;
-  width: 66px;
-  margin: 6px 5px 6px !important;
+  height: 50px;
+  border: none;
+  /* width: 66px; */
+  /* margin: 6px 5px 6px !important; */
   background-color: #f8f8f8;
   font-weight: 300;
   font-size: 24px;
-  border-radius: 100px;
+  border-radius: 0px;
   line-height: 21px;
   padding-top: 9px;
   float: left;

@@ -27,9 +27,9 @@ $(document).ready(function () {
             password: pass,
             displayName: param1,
             // uri: "sip:" + param1 + "@172.16.200.37",
-            uri: "sip:" + param1 + "@"+host,
+            uri: "sip:" + param1 + "@" + host,
             // wsServers: "wss://172.16.200.37:8089/ws",
-            wsServers: "wss://"+host+":8089/ws",
+            wsServers: "wss://" + host + ":8089/ws",
             registerExpires: 30,
             traceSip: true,
             log: {
@@ -160,46 +160,97 @@ $(document).ready(function () {
                 ctxSip.Sessions[newSess.ctxid].isMuted = false;
                 ctxSip.setCallSessionStatus("Contestada");
             });
-
-            newSess.on('cancel', function (e) {
-                ctxSip.stopRingTone();
-                ctxSip.stopRingbackTone();
-                ctxSip.setCallSessionStatus("Cancelada");
-                if (this.direction === 'outgoing') {
-                    ctxSip.callActiveID = null;
-                    newSess = null;
-                    ctxSip.logCall(this, 'ended');
+            if (newSess.innerCall) {
+                function removeAudioRemoteS2() {
+                    var element = document.getElementById('audioRemoteS2');
+                
+                    if (element) {
+                        // Element found, remove it
+                        element.parentNode.removeChild(element);
+                        console.log('Element with ID "audioRemoteS2" removed.');
+                    } else {
+                        // Element not found
+                        console.log('Element with ID "audioRemoteS2" not found.');
+                    }
                 }
-                ctxSip.logClear();
-            });
+                newSess.on('cancel', function (e) {
+                    ctxSip.stopRingTone();
+                    ctxSip.stopRingbackTone();
+                    ctxSip.setCallSessionStatus("Cancelada");
+                    ctxSip.logCall(this, 'ended');
+                    if (this.direction === 'outgoing') {
+                        ctxSip.callActiveID = null;
+                        newSess = null;
+                    }
+                    removeAudioRemoteS2()
+                });
 
-            newSess.on('bye', function (e) {
-                ctxSip.stopRingTone();
-                ctxSip.stopRingbackTone();
-                ctxSip.setCallSessionStatus("");
-                ctxSip.logCall(newSess, 'ended');
-                ctxSip.callActiveID = null;
-                newSess = null;
-                ctxSip.logClear();
-            });
+                newSess.on('bye', function (e) {
+                    ctxSip.stopRingTone();
+                    ctxSip.stopRingbackTone();
+                    ctxSip.setCallSessionStatus("");
+                    ctxSip.callActiveID = null;
+                    ctxSip.logCall(newSess, 'ended');
+                    newSess = null;
+                    removeAudioRemoteS2()
+                });
 
-            newSess.on('failed', function (e) {
-                ctxSip.stopRingTone();
-                ctxSip.stopRingbackTone();
-                ctxSip.setCallSessionStatus('Terminada');
-                ctxSip.logClear();
-            });
+                newSess.on('failed', function (e) {
+                    ctxSip.stopRingTone();
+                    ctxSip.stopRingbackTone();
+                    ctxSip.setCallSessionStatus('Terminada');
+                    removeAudioRemoteS2()
+                });
 
-            newSess.on('rejected', function (e) {
-                ctxSip.stopRingTone();
-                ctxSip.stopRingbackTone();
-                ctxSip.setCallSessionStatus('Rechazada');
-                ctxSip.callActiveID = null;
-                ctxSip.logCall(this, 'ended');
-                newSess = null;
-                ctxSip.logClear();
-            });
+                newSess.on('rejected', function (e) {
+                    ctxSip.stopRingTone();
+                    ctxSip.stopRingbackTone();
+                    ctxSip.setCallSessionStatus('Rechazada');
+                    ctxSip.callActiveID = null;
+                    ctxSip.logCall(this, 'ended');
+                    newSess = null;
+                    removeAudioRemoteS2()
+                });
+            } else {
+                newSess.on('cancel', function (e) {
+                    ctxSip.stopRingTone();
+                    ctxSip.stopRingbackTone();
+                    ctxSip.setCallSessionStatus("Cancelada");
+                    ctxSip.logCall(this, 'ended');
+                    if (this.direction === 'outgoing') {
+                        ctxSip.callActiveID = null;
+                        newSess = null;
+                    }
+                    ctxSip.logClear();
+                });
 
+                newSess.on('bye', function (e) {
+                    ctxSip.stopRingTone();
+                    ctxSip.stopRingbackTone();
+                    ctxSip.setCallSessionStatus("");
+                    ctxSip.callActiveID = null;
+                    ctxSip.logCall(newSess, 'ended');
+                    newSess = null;
+                    ctxSip.logClear();
+                });
+
+                newSess.on('failed', function (e) {
+                    ctxSip.stopRingTone();
+                    ctxSip.stopRingbackTone();
+                    ctxSip.setCallSessionStatus('Terminada');
+                    ctxSip.logClear();
+                });
+
+                newSess.on('rejected', function (e) {
+                    ctxSip.stopRingTone();
+                    ctxSip.stopRingbackTone();
+                    ctxSip.setCallSessionStatus('Rechazada');
+                    ctxSip.callActiveID = null;
+                    ctxSip.logCall(this, 'ended');
+                    newSess = null;
+                    ctxSip.logClear();
+                });
+            }
             ctxSip.Sessions[newSess.ctxid] = newSess;
 
         },
@@ -301,12 +352,6 @@ $(document).ready(function () {
                     callIcon = 'fa-phone';
                     break;
 
-                case 'missed':
-                    callClass = 'list-group-item-danger';
-                    if (item.flow === "incoming") { callIcon = 'fa-chevron-left'; }
-                    if (item.flow === "outgoing") { callIcon = 'fa-chevron-right'; }
-                    break;
-
                 case 'holding':
                     callClass = 'list-group-item-warning primary-shadow';
                     callIcon = 'fa-pause';
@@ -318,35 +363,25 @@ $(document).ready(function () {
                     callIcon = 'fa-phone-square';
                     break;
 
-                case 'ended':
-                    if (item.flow === "incoming") { callIcon = 'fa-chevron-left'; }
-                    if (item.flow === "outgoing") { callIcon = 'fa-chevron-right'; }
-                    if (item.answered) {
-                        callClass = 'list-group-item-success';
-                    } else {
-                        callLength = "";
-                        callClass = 'list-group-item-danger';
-                    }
-                    break;
             }
 
-            i = '<div class=" overflow-hidden border-none list-group-item sip-logitem clearfix ' + callClass + '" data-uri="' + item.uri + '" data-sessionid="' + item.id + '" title="">';
+            i = '<div class="w-5/6 overflow-hidden border-none list-group-item sip-logitem clearfix ' + callClass + '" data-uri="' + item.uri + '" data-sessionid="' + item.id + '" title="">';
             i += '<div class="w-full px-2 pt-2">';
             if (item.flow === 'incoming') {
                 if (item.status === 'resumed' || item.status === 'answered') {
-                    i += '<div class="text-md border-b-2 mb-3">Llamada en curso</div>';
+                    i += '<div class="log-title text-md border-b-2 mb-3">Llamada en curso</div>';
                 } else if (item.status === 'holding') {
-                    i += '<div class="text-md border-b-2 mb-3">Llamada en espera</div>';
+                    i += '<div class="log-title text-md border-b-2 mb-3">Llamada en espera</div>';
                 } else {
-                    i += '<div class="text-md border-b-2 mb-3">Llamada entrante</div>';
+                    i += '<div class="log-title text-md border-b-2 mb-3">Llamada entrante</div>';
                 }
             } else {
                 if (item.status === 'resumed' || item.status === 'answered') {
-                    i += '<div class="text-md border-b-2 mb-3">Llamada en curso</div>';
+                    i += '<div class="log-title text-md border-b-2 mb-3">Llamada en curso</div>';
                 } else if (item.status === 'holding') {
-                    i += '<div class="text-md border-b-2 mb-3">Llamada en espera</div>';
+                    i += '<div class="log-title text-md border-b-2 mb-3">Llamada en espera</div>';
                 } else {
-                    i += '<div class="text-md border-b-2 mb-3">Llamada saliente</div>';
+                    i += '<div class="log-title text-md border-b-2 mb-3">Llamada saliente</div>';
                 }
             }
             i += '<div class="clearfix"><div class="pull-left">';
@@ -363,12 +398,12 @@ $(document).ready(function () {
                 } else {
                     if (item.innerCall) {
                         i += '<button class="btn btn-md btnSendTransfer rounded-none" title="Completar Transferencia"><i class="fa fa-share"></i></button>';
-                    } else {
+                    } else if (item.status === 'answered' | item.status === 'resumed' | item.status === 'holding') {
                         i += '<button class="btn btn-md btnHoldResume rounded-none" title="Espera"><i class="fa fa-pause"></i></button>';
                         i += '<button class="btn btn-md btnTransfer rounded-none" title="Transferir"><i class="fa fa-random"></i></button>';
                         i += '<button class="btn btn-md btnAddBuddy rounded-none" title="Agregar persona"><i class="fa fa-plus"></i></button>';
+                        i += '<button class="btn btn-md btnMute rounded-none" title="Mutear"><i class="fa fa-fw fa-microphone"></i></button>';
                     }
-                    i += '<button class="btn btn-md btnMute rounded-none" title="Mutear"><i class="fa fa-fw fa-microphone"></i></button>';
                 }
                 i += '<button class="btn btn-md btn-danger btnHangUp rounded-none" title="Colgar"><i class="fa fa-phone transform rotate-[138deg]"></i></button>';
                 i += '</div>';
@@ -382,10 +417,15 @@ $(document).ready(function () {
 
 
             // Start call timer on answer
-            if (item.status === 'answered') {
+            if (item.status === 'answered' | item.status === 'resumed') {
                 var tEle = document.getElementById(item.id);
-                ctxSip.callTimers[item.id] = new Stopwatch(tEle);
-                ctxSip.callTimers[item.id].start();
+                if (!ctxSip.callTimers[item.id]) {
+                    ctxSip.callTimers[item.id] = new Stopwatch(tEle);
+                    ctxSip.callTimers[item.id].start();
+                } else {
+                    ctxSip.callTimers[item.id].setElement(tEle);
+                    // ctxSip.callTimers[item.id].start();
+                }
             }
 
             if (callActive && item.status !== 'ringing') {
@@ -405,10 +445,6 @@ $(document).ready(function () {
 
             if (calllog !== null) {
 
-                // $('#sip-splash').addClass('hide');
-                // $('#sip-log').removeClass('hide');
-
-                // empty existing logs
                 $('#call-section').empty();
                 $('#sip-logitems').empty();
                 // JS doesn't guarantee property order so
@@ -515,34 +551,40 @@ $(document).ready(function () {
             remoteRenderS2.autoplay = true;
             remoteRenderS2.id = 'audioRemoteS2'; // Adjust the ID as needed
             document.body.appendChild(remoteRenderS2);
-            try {
-                // Create a new call session for Call B (the buddy)
-                var s2 = ctxSip.phone.invite(target, {
-                    media: {
-                        stream: mixAudioStreams(ctxSip.Stream, s.getRemoteStreams()[0]),
-                        constraints: { audio: true, video: false },
-                        render: {
-                            remote: remoteRenderS2
-                        },
-                        RTCConstraints: { "optional": [{ 'DtlsSrtpKeyAgreement': 'true' }] }
-                    }
+            s.unhold();
+            setTimeout(() => {
+                try {
+                    // Create a new call session for Call B (the buddy)
+                    var s2 = ctxSip.phone.invite(target, {
+                        media: {
+                            stream: mixAudioStreams(ctxSip.Stream, s.getRemoteStreams()[0]),
+                            constraints: { audio: true, video: false },
+                            render: {
+                                remote: remoteRenderS2
+                            },
+                            RTCConstraints: { "optional": [{ 'DtlsSrtpKeyAgreement': 'true' }] }
+                        }
+                    });
+                    s2.direction = 'outgoing';
+                    s2.innerCall = true;
+                    ctxSip.newSession(s2);
+                    s.hold();
+                } catch (e) {
+                    throw (e);
+                }
+                s2.on('accepted', function () {
+                    console.log(s)
+                    // console.log();
+                    // console.log(s.getLocalStreams());
+                    var newAudioStream = mixAudioStreams(ctxSip.Stream, s2.getRemoteStreams()[0]);
+                    var pc = s.mediaHandler.peerConnection;
+                    const currentSenders = pc.getSenders();
+                    const currentAudioSender = currentSenders.find((s) => s.track.kind === 'audio');
+                    currentAudioSender.replaceTrack(newAudioStream.getAudioTracks()[0]);
+                    // console.log(pc)
                 });
-                s2.direction = 'outgoing';
-                ctxSip.newSession(s2);
-            } catch (e) {
-                throw (e);
-            }
-            s2.on('accepted', function () {
-                console.log(s)
-                // console.log();
-                // console.log(s.getLocalStreams());
-                var newAudioStream = mixAudioStreams(ctxSip.Stream, s2.getRemoteStreams()[0]);
-                var pc = s.mediaHandler.peerConnection;
-                const currentSenders = pc.getSenders();
-                const currentAudioSender = currentSenders.find((s) => s.track.kind === 'audio');
-                currentAudioSender.replaceTrack(newAudioStream.getAudioTracks()[0]);
-                // console.log(pc)
-            });
+            },
+            1000);
 
             function mixAudioStreams(stream1, stream2) {
                 const audioContext = new AudioContext();
@@ -810,6 +852,13 @@ $(document).ready(function () {
     $('#call-section').delegate('.sip-logitem .btnHoldResume', 'click', function (event) {
         var sessionid = $(this).closest('.sip-logitem').data('sessionid');
         ctxSip.phoneHoldButtonPressed(sessionid);
+        // if ($(this).closest('.sip-logitem').hasClass('on-hold')) {
+        //     $(this).closest('.sip-logitem').removeClass('on-hold');
+        //     $(this).closest('.sip-logitem').find('.log-title').text("Llamada en curso");
+        // } else {
+        //     $(this).closest('.sip-logitem').addClass('on-hold');
+        //     $(this).closest('.sip-logitem').find('.log-title').text("Llamada en espera");
+        // }
         return false;
     });
 
@@ -833,16 +882,15 @@ $(document).ready(function () {
     $('#call-section').delegate('.sip-logitem .btnMute', 'click', function (event) {
         var sessionid = $(this).closest('.sip-logitem').data('sessionid');
         var $button = $(this);
-        var currentState = $button.data('currentState') || 'on';
-        if (currentState === 'off') {
+
+        if ($button.hasClass('muted')) {
             // Change the button's color to 'green' when it's in the 'off' state
-            $button.css('color', 'black');
-            $button.data('currentState', 'on');
+            $button.removeClass('muted')
         } else {
             // Change the button's color to 'red' when it's in the 'on' state
-            $button.css('color', 'red');
-            $button.data('currentState', 'off');
+            $button.addClass('muted')
         }
+
         ctxSip.phoneMuteButtonPressed(sessionid);
         return false;
     });
@@ -875,56 +923,14 @@ $(document).ready(function () {
         });
 
         if (v < 0.1) {
-            // btn.removeClass(function (index, css) {
-            //     // Split the class attribute into individual classes
-            //     var classes = css.split(' ');
-
-            //     // Filter out classes that start with 'bg-' or 'hover:bg-'
-            //     var filteredClasses = classes.filter(function (className) {
-            //         return className.startsWith('bg-') || className.startsWith('hover:bg-');
-            //     });
-
-            //     // Join the filtered classes back together
-            //     return filteredClasses.join(' ');
-            // })
-            //     .addClass('bg-red-500 hover:bg-red-400');
             icon.removeClass().addClass('fa fa-fw fa-volume-off text-3xl');
         } else if (v < 0.8) {
-            // btn.removeClass(function (index, css) {
-            //     // Split the class attribute into individual classes
-            //     var classes = css.split(' ');
-
-            //     // Filter out classes that start with 'bg-' or 'hover:bg-'
-            //     var filteredClasses = classes.filter(function (className) {
-            //         return className.startsWith('bg-') || className.startsWith('hover:bg-');
-            //     });
-
-            //     // Join the filtered classes back together
-            //     return filteredClasses.join(' ');
-            // }).addClass('bg-yellow-500 hover:bg-yellow-400');
             icon.removeClass().addClass('fa fa-fw fa-volume-down text-3xl');
         } else {
-            // btn.removeClass(function (index, css) {
-            //     // Split the class attribute into individual classes
-            //     var classes = css.split(' ');
-
-            //     // Filter out classes that start with 'bg-' or 'hover:bg-'
-            //     var filteredClasses = classes.filter(function (className) {
-            //         return className.startsWith('bg-') || className.startsWith('hover:bg-');
-            //     });
-
-            //     // Join the filtered classes back together
-            //     return filteredClasses.join(' ');
-            // }).addClass('bg-blue-500 hover:bg-blue-400');
             icon.removeClass().addClass('fa fa-fw fa-volume-up text-3xl');
         }
         return false;
     });
-
-    // Hide the spalsh after 3 secs.
-    // setTimeout(function() {
-    //     ctxSip.logShow();
-    // }, 3000);
 
 
     /**
@@ -988,13 +994,17 @@ $(document).ready(function () {
             offset = now;
             return d;
         }
+        function setElement(element) {
+            element.appendChild(timer);
+        }
 
         // initialize
         reset();
 
         // public API
         this.start = start; //function() { start; }
-        this.stop = stop; //function() { stop; }
+        this.stop = stop;
+        this.setElement = setElement; //function() { stop; }
     };
 
 });
