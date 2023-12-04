@@ -390,22 +390,22 @@ $(document).ready(function () {
             i += '<div class="pull-right text-right"><em>' + item.clid + '</em><br>' + callLength + '</div></div></div>';
             // console.log(item.innerCall)
             if (callActive) {
-                i += '<div class="relative h-14"></div>';
+                i += '<div class="relative h-16"></div>';
                 i += '<div class="bg-gray-300 w-full flex justify-end absolute bottom-[0%]">';
 
                 if (item.status === 'ringing' && item.flow === 'incoming') {
-                    i += '<button class="btn btn-md btn-success btnCall rounded-none" title="Contestar"><i class="fa fa-phone"></i></button>';
+                    i += '<button class="btn btn-md btn-success btnCall rounded-none text-4xl" title="Contestar"><i class="fa fa-phone"></i></button>';
                 } else {
                     if (item.innerCall) {
                         i += '<button class="btn btn-md btnSendTransfer rounded-none" title="Completar Transferencia"><i class="fa fa-share"></i></button>';
                     } else if (item.status === 'answered' | item.status === 'resumed' | item.status === 'holding') {
-                        i += '<button class="btn btn-md btnHoldResume rounded-none" title="Espera"><i class="fa fa-pause"></i></button>';
-                        i += '<button class="btn btn-md btnTransfer rounded-none" title="Transferir"><i class="fa fa-random"></i></button>';
-                        i += '<button class="btn btn-md btnAddBuddy rounded-none" title="Agregar persona"><i class="fa fa-plus"></i></button>';
-                        i += '<button class="btn btn-md btnMute rounded-none" title="Mutear"><i class="fa fa-fw fa-microphone"></i></button>';
+                        i += '<button class="btn btn-md btnHoldResume rounded-none text-4xl" title="Espera"><i class="fa fa-pause"></i></button>';
+                        i += '<button class="btn btn-md btnTransfer rounded-none text-4xl" title="Transferir"><i class="fa fa-random"></i></button>';
+                        i += '<button class="btn btn-md btnAddBuddy rounded-none text-4xl" title="Agregar persona"><i class="fa fa-plus"></i></button>';
+                        i += '<button class="btn btn-md btnMute rounded-none text-4xl" title="Mutear"><i class="fa fa-fw fa-microphone"></i></button>';
                     }
                 }
-                i += '<button class="btn btn-md btn-danger btnHangUp rounded-none" title="Colgar"><i class="fa fa-phone transform rotate-[138deg]"></i></button>';
+                i += '<button class="btn btn-md btn-danger btnHangUp rounded-none text-4xl" title="Colgar"><i class="fa fa-phone transform rotate-[138deg]"></i></button>';
                 i += '</div>';
                 i += '</div>';
                 $('#call-section').append(i);

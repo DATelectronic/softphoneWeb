@@ -107,6 +107,8 @@ body {
   padding: 0;
   /* padding-top: 4px; */
   margin-bottom: 5px;
+  border-radius: 4px;
+  max-width: 305px;
 }
 
 #sipClient #numDisplay::-webkit-input-placeholder {
