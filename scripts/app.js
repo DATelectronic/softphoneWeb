@@ -212,6 +212,13 @@ $(document).ready(function () {
                     removeAudioRemoteS2()
                 });
             } else {
+                function removeActiveSessions() {
+                    ctxSip.Sessions.forEach(function (session) {
+                        // Perform hang-up operation for each session
+                        ctxSip.sipHangUp(session.sessionID); // Assuming sessionID is used to identify sessions
+                    });
+                    ctxSip.Sessions = [];
+                }
                 newSess.on('cancel', function (e) {
                     ctxSip.stopRingTone();
                     ctxSip.stopRingbackTone();
@@ -221,6 +228,7 @@ $(document).ready(function () {
                         ctxSip.callActiveID = null;
                         newSess = null;
                     }
+                    removeActiveSessions()
                     ctxSip.logClear();
                 });
 
@@ -231,6 +239,7 @@ $(document).ready(function () {
                     ctxSip.callActiveID = null;
                     ctxSip.logCall(newSess, 'ended');
                     newSess = null;
+                    removeActiveSessions()
                     ctxSip.logClear();
                 });
 
@@ -238,6 +247,7 @@ $(document).ready(function () {
                     ctxSip.stopRingTone();
                     ctxSip.stopRingbackTone();
                     ctxSip.setCallSessionStatus('Terminada');
+                    removeActiveSessions()
                     ctxSip.logClear();
                 });
 
@@ -248,6 +258,7 @@ $(document).ready(function () {
                     ctxSip.callActiveID = null;
                     ctxSip.logCall(this, 'ended');
                     newSess = null;
+                    removeActiveSessions()
                     ctxSip.logClear();
                 });
             }
