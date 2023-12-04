@@ -491,7 +491,6 @@ $(document).ready(function () {
         },
 
         sipCall: function (target) {
-
             try {
                 var s = ctxSip.phone.invite(target, {
                     media: {
@@ -514,6 +513,9 @@ $(document).ready(function () {
 
             var s = ctxSip.Sessions[sessionid],
                 target = window.prompt('Ingrese el numero', '');
+            if (!target) {
+                return;
+            }
             s.hold();
             try {
                 var remoteRenderS2 = document.createElement('audio');
@@ -558,6 +560,9 @@ $(document).ready(function () {
         addBuddy: function (sessionid) {
             var s = ctxSip.Sessions[sessionid];
             var target = window.prompt('Ingrese el numero para agregar', '');
+            if (!target) {
+                return;
+            }
             var remoteRenderS2 = document.createElement('audio');
             remoteRenderS2.autoplay = true;
             remoteRenderS2.id = 'audioRemoteS2'; // Adjust the ID as needed
@@ -863,13 +868,6 @@ $(document).ready(function () {
     $('#call-section').delegate('.sip-logitem .btnHoldResume', 'click', function (event) {
         var sessionid = $(this).closest('.sip-logitem').data('sessionid');
         ctxSip.phoneHoldButtonPressed(sessionid);
-        // if ($(this).closest('.sip-logitem').hasClass('on-hold')) {
-        //     $(this).closest('.sip-logitem').removeClass('on-hold');
-        //     $(this).closest('.sip-logitem').find('.log-title').text("Llamada en curso");
-        // } else {
-        //     $(this).closest('.sip-logitem').addClass('on-hold');
-        //     $(this).closest('.sip-logitem').find('.log-title').text("Llamada en espera");
-        // }
         return false;
     });
 
@@ -905,7 +903,15 @@ $(document).ready(function () {
         ctxSip.phoneMuteButtonPressed(sessionid);
         return false;
     });
+    $(document).on('DOMSubtreeModified', '#call-section', function (event) {
+        // alert('changed');
+        var numChildren = $('#call-section').children().length;
+        $('#numDisplay').prop('disabled', numChildren > 0);
+        $('.btnTransfer').prop('disabled', numChildren > 1);
+        $('.btnAddBuddy').prop('disabled', numChildren > 1);
 
+
+    });
     // $('#sip-logitems').delegate('.sip-logitem', 'dblclick', function(event) {
     //     event.preventDefault();
 
