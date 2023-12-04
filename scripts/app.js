@@ -163,7 +163,7 @@ $(document).ready(function () {
             if (newSess.innerCall) {
                 function removeAudioRemoteS2() {
                     var element = document.getElementById('audioRemoteS2');
-                
+
                     if (element) {
                         // Element found, remove it
                         element.parentNode.removeChild(element);
@@ -367,27 +367,20 @@ $(document).ready(function () {
 
             i = '<div class="w-5/6 overflow-hidden border-none list-group-item sip-logitem clearfix ' + callClass + '" data-uri="' + item.uri + '" data-sessionid="' + item.id + '" title="">';
             i += '<div class="w-full px-2 pt-2">';
-            if (item.flow === 'incoming') {
-                if (item.status === 'resumed' || item.status === 'answered') {
-                    i += '<div class="log-title text-md border-b-2 mb-3">Llamada en curso</div>';
-                } else if (item.status === 'holding') {
-                    i += '<div class="log-title text-md border-b-2 mb-3">Llamada en espera</div>';
-                } else {
-                    i += '<div class="log-title text-md border-b-2 mb-3">Llamada entrante</div>';
-                }
-            } else {
-                if (item.status === 'resumed' || item.status === 'answered') {
-                    i += '<div class="log-title text-md border-b-2 mb-3">Llamada en curso</div>';
-                } else if (item.status === 'holding') {
-                    i += '<div class="log-title text-md border-b-2 mb-3">Llamada en espera</div>';
-                } else {
-                    i += '<div class="log-title text-md border-b-2 mb-3">Llamada saliente</div>';
-                }
+            if (item.flow === 'incoming' && item.status === 'ringing') {
+                i += '<div class="log-title text-2xl border-b-2 mb-3">Llamada entrante</div>';
+            } else if (item.flow === 'outgoing' && item.status === 'ringing'){
+                i += '<div class="log-title text-2xl border-b-2 mb-3">Llamada saliente</div>';
             }
-            i += '<div class="clearfix"><div class="pull-left">';
+            if (item.status === 'resumed' || item.status === 'answered') {
+                i += '<div class="log-title text-2xl border-b-2 mb-3">Llamada en curso</div>';
+            } else if (item.status === 'holding') {
+                i += '<div class="log-title text-2xl border-b-2 mb-3">Llamada en espera</div>';
+            }
+            i += '<div class="clearfix"><div class="pull-left text-2xl">';
             i += '<i class="fa fa-fw ' + callIcon + ' fa-fw"></i> <strong>' + ctxSip.formatPhone(item.uri) + '</strong><br><small>' + moment(item.start).format('MM/DD hh:mm:ss a') + '</small>';
             i += '</div>';
-            i += '<div class="pull-right text-right"><em>' + item.clid + '</em><br>' + callLength + '</div></div></div>';
+            i += '<div class="pull-right text-right text-2xl"><em>' + item.clid + '</em><br>' + callLength + '</div></div></div>';
             // console.log(item.innerCall)
             if (callActive) {
                 i += '<div class="relative h-16"></div>';
@@ -399,10 +392,10 @@ $(document).ready(function () {
                     if (item.innerCall) {
                         i += '<button class="btn btn-md btnSendTransfer rounded-none" title="Completar Transferencia"><i class="fa fa-share"></i></button>';
                     } else if (item.status === 'answered' | item.status === 'resumed' | item.status === 'holding') {
-                        i += '<button class="btn btn-md btnHoldResume rounded-none text-4xl" title="Espera"><i class="fa fa-pause"></i></button>';
-                        i += '<button class="btn btn-md btnTransfer rounded-none text-4xl" title="Transferir"><i class="fa fa-random"></i></button>';
-                        i += '<button class="btn btn-md btnAddBuddy rounded-none text-4xl" title="Agregar persona"><i class="fa fa-plus"></i></button>';
-                        i += '<button class="btn btn-md btnMute rounded-none text-4xl" title="Mutear"><i class="fa fa-fw fa-microphone"></i></button>';
+                        i += '<button class="btn btn-md btnHoldResume rounded-none text-3xl" title="Espera"><i class="fa fa-pause"></i></button>';
+                        i += '<button class="btn btn-md btnTransfer rounded-none text-3xl" title="Transferir"><i class="fa fa-random"></i></button>';
+                        i += '<button class="btn btn-md btnAddBuddy rounded-none text-3xl" title="Agregar persona"><i class="fa fa-plus"></i></button>';
+                        i += '<button class="btn btn-md btnMute rounded-none text-3xl" title="Mutear"><i class="fa fa-fw fa-microphone"></i></button>';
                     }
                 }
                 i += '<button class="btn btn-md btn-danger btnHangUp rounded-none text-4xl" title="Colgar"><i class="fa fa-phone transform rotate-[138deg]"></i></button>';
@@ -584,7 +577,7 @@ $(document).ready(function () {
                     // console.log(pc)
                 });
             },
-            1000);
+                1000);
 
             function mixAudioStreams(stream1, stream2) {
                 const audioContext = new AudioContext();
