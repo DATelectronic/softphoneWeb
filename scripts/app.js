@@ -368,12 +368,28 @@ $(document).ready(function () {
             i = '<div class="w-5/6 overflow-hidden border-none list-group-item sip-logitem clearfix ' + callClass + '" data-uri="' + item.uri + '" data-sessionid="' + item.id + '" title="">';
             i += '<div class="w-full px-2 pt-2">';
             if (item.flow === 'incoming' && item.status === 'ringing') {
-                i += '<div class="log-title text-2xl border-b-2 mb-3">Llamada entrante</div>';
-            } else if (item.flow === 'outgoing' && item.status === 'ringing'){
-                i += '<div class="log-title text-2xl border-b-2 mb-3">Llamada saliente</div>';
+                i += '<div class="log-title text-2xl border-b-2 mb-3">Llamada entrada</div>';
+            } else if (item.flow === 'outgoing' && item.status === 'ringing') {
+                if (item.innerCall) {
+                    if (item.innerCall == 1) {
+                        i += '<div class="log-title text-2xl border-b-2 mb-3">Llamada Transferencia</div>';
+                    } else {
+                        i += '<div class="log-title text-2xl border-b-2 mb-3">Llamada Conferencia</div>';
+                    }
+                } else {
+                    i += '<div class="log-title text-2xl border-b-2 mb-3">Llamada salida</div>';
+                }
             }
             if (item.status === 'resumed' || item.status === 'answered') {
-                i += '<div class="log-title text-2xl border-b-2 mb-3">Llamada en curso</div>';
+                if (item.innerCall) {
+                    if (item.innerCall == 1) {
+                        i += '<div class="log-title text-2xl border-b-2 mb-3">Llamada Transferencia en curso</div>';
+                    } else {
+                        i += '<div class="log-title text-2xl border-b-2 mb-3">Llamada Conferencia en curso</div>';
+                    }
+                } else {
+                    i += '<div class="log-title text-2xl border-b-2 mb-3">Llamada en curso</div>';
+                }
             } else if (item.status === 'holding') {
                 i += '<div class="log-title text-2xl border-b-2 mb-3">Llamada en espera</div>';
             }
@@ -390,7 +406,9 @@ $(document).ready(function () {
                     i += '<button class="btn btn-md btn-success btnCall rounded-none text-4xl" title="Contestar"><i class="fa fa-phone"></i></button>';
                 } else {
                     if (item.innerCall) {
-                        i += '<button class="btn btn-md btnSendTransfer rounded-none" title="Completar Transferencia"><i class="fa fa-share"></i></button>';
+                        if (item.innerCall == 1) {
+                            i += '<button class="btn btn-md btnSendTransfer rounded-none" title="Completar Transferencia"><i class="fa fa-share"></i></button>';
+                        }
                     } else if (item.status === 'answered' | item.status === 'resumed' | item.status === 'holding') {
                         i += '<button class="btn btn-md btnHoldResume rounded-none text-3xl" title="Espera"><i class="fa fa-pause"></i></button>';
                         i += '<button class="btn btn-md btnTransfer rounded-none text-3xl" title="Transferir"><i class="fa fa-random"></i></button>';
@@ -513,7 +531,7 @@ $(document).ready(function () {
                     }
                 });
                 s2.direction = 'outgoing';
-                s2.innerCall = true;
+                s2.innerCall = 1;
                 // s2.holdSession = s;
                 ctxSip.newSession(s2);
                 // console.log(s2);
@@ -559,7 +577,7 @@ $(document).ready(function () {
                         }
                     });
                     s2.direction = 'outgoing';
-                    s2.innerCall = true;
+                    s2.innerCall = 2;
                     ctxSip.newSession(s2);
                     s.hold();
                 } catch (e) {
