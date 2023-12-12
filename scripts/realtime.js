@@ -1,7 +1,7 @@
 var SipAnexs = $('#sip-anexs')
 function ajaxAgentes() {
     $.ajax({
-        url: 'http://172.16.21.142:8000/reportes/tiempo_real_softphone/1',
+        url: 'https://172.16.21.142/reportes/tiempo_real_softphone/1',
         type: 'GET',
         dataType: 'json',
         success: function (data) {
