@@ -92,9 +92,8 @@ body {
 }
 
 #sipClient #sip-logitems ,#sip-anexs {
-  min-height: 242px;
-  height: 100%;
-  /* overflow: auto; */
+  height: 242px;
+  overflow: auto;
 }
 
 #sipClient #sldVolume {

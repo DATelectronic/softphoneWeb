@@ -609,6 +609,8 @@ $(document).ready(function () {
                     const currentAudioSender = currentSenders.find((s) => s.track.kind === 'audio');
                     currentAudioSender.replaceTrack(newAudioStream.getAudioTracks()[0]);
                     // console.log(pc)
+                    s2.mute();
+                    s2.unmute();
                 });
             },
                 1000);
