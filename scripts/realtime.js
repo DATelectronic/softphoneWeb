@@ -7,7 +7,7 @@ function ajaxAgentes() {
         success: function (data) {
             console.log(data);
             // tabla_agentes.clear().draw();
-            var dotColor='';
+            var dotColor = '';
             SipAnexs.empty();
             for (var i = 0; i < data['agent_list'].length; i++) {
                 var agent = data['agent_list'][i]['membername'];
@@ -15,28 +15,28 @@ function ajaxAgentes() {
                 //status Exten: 0=Idle,1=inUse,2=busy,4=unavailable,8=Ringing,9=inUse&Ringing,16=Hold,17=inUse&Hold
                 if (status == 0) {
                     status = 'Disponible';
-                    dotColor ='green'
+                    dotColor = 'green'
                 } else if (status == 1) {
                     status = 'En Uso';
-                    dotColor ='green'
+                    dotColor = 'green'
                 } else if (status == 2) {
                     status = 'Ocupado';
-                    dotColor ='red'
+                    dotColor = 'red'
                 } else if (status == 4) {
                     status = 'Teléfono Desconectado';
-                    dotColor ='gray'
+                    dotColor = 'gray'
                 } else if (status == 8) {
                     status = 'Ringing';
-                    dotColor ='red'
+                    dotColor = 'red'
                 } else if (status == 9) {
                     status = 'InUse&Ringing';
-                    dotColor ='red'
+                    dotColor = 'red'
                 } else if (status == 16) {
                     status = 'En Espera';
-                    dotColor ='red'
+                    dotColor = 'red'
                 } else if (status == 17) {
                     status = 'InUse&Hold';
-                    dotColor ='red'
+                    dotColor = 'red'
                 }
                 // set queues with data['agent_list'][i]['queues'] only queue_names
                 var queues = data['agent_list'][i]['queues'].map(function (e) {
@@ -104,5 +104,7 @@ function ajaxAgentes() {
     });
 }
 $(document).ready(function () {
-    setInterval(ajaxAgentes, 1100);
+    setTimeout(() => {
+        setInterval(ajaxAgentes, 1100);
+    }, 10000);
 });
