@@ -53,7 +53,7 @@ function ajaxCalls() {
                 //     interface + "'" +
                 //     ',3)" ><i class="fas fa-phone-slash fa-lg"></i> Desconectar</button>';
                 var innerHtml = `<div class="hover:bg-gray-200 cursor-pointer bg-white border-b-[1px] flex p-3 items-center h-[53.3px] overflow-hidden">
-                    <div class="w-1/2">
+                    <div class="w-2/3">
                       <div class="flex items-center">
                         <i class="fa fa-phone-square text-black text-3xl ml-2 mb-6"></i>
                         <div class="ml-2">
@@ -62,7 +62,7 @@ function ajaxCalls() {
                         </div>
                       </div>
                     </div>
-                    <div class="w-1/2 h-12 flex justify-center flex-col items-end">
+                    <div class="w-1/3 h-12 flex justify-center flex-col items-end">
                         <span class="capitalize text-gray-600 text-xl">${duration}</span>
                         <span class="capitalize text-gray-600 text-xl">${queuename}</span>
                     </div>
