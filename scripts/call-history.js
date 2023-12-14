@@ -1,5 +1,5 @@
 const params = new URLSearchParams(window.location.search);
-var SipAnexs = $('#sip-logitems')
+var SipLogs = $('#sip-logitems')
 function ajaxCalls() {
     $.ajax({
         url: `https://172.16.21.142/reportes/ultimas_llamadas_agente/${params.get("param2")}`,
@@ -9,7 +9,7 @@ function ajaxCalls() {
             console.log(data);
             // tabla_agentes.clear().draw();
             var dotColor = '';
-            SipAnexs.empty();
+            SipLogs.empty();
             for (var i = 0; i < data['last_calls'].length; i++) {
                 var phone = data['last_calls'][i]['phone'];
                 var time = data['last_calls'][i]['time'];
@@ -52,7 +52,7 @@ function ajaxCalls() {
                 //     '<button class="btn btn-danger btn-sm" onclick="coaching(' + "'" + agent + "','" +
                 //     interface + "'" +
                 //     ',3)" ><i class="fas fa-phone-slash fa-lg"></i> Desconectar</button>';
-                var innerHtml = `<div class="hover:bg-gray-200 cursor-pointer bg-white border-b-[1px] flex p-3 items-center">
+                var innerHtml = `<div class="hover:bg-gray-200 cursor-pointer bg-white border-b-[1px] flex p-3 items-center h-[53.3px] overflow-hidden">
                     <div class="w-1/2">
                       <div class="flex items-center">
                         <i class="fa fa-phone-square text-black text-3xl ml-2 mb-6"></i>
@@ -67,7 +67,7 @@ function ajaxCalls() {
                         <span class="capitalize text-gray-600 text-xl">${queuename}</span>
                     </div>
                   </div> `
-                SipAnexs.append(innerHtml);
+                SipLogs.append(innerHtml);
             }
 
             //change color only second column
