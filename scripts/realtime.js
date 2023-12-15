@@ -53,7 +53,7 @@ function ajaxAgentes() {
                 //     '<button class="btn btn-danger btn-sm" onclick="coaching(' + "'" + agent + "','" +
                 //     interface + "'" +
                 //     ',3)" ><i class="fas fa-phone-slash fa-lg"></i> Desconectar</button>';
-                var innerHtml = `<div class="hover:bg-gray-200 cursor-pointer bg-white border-b-[1px] flex p-3 items-center h-[53.3px] overflow-hidden">
+                var innerHtml = `<div class="hover:bg-gray-200 cursor-pointer bg-white border-b-[1px] flex p-3 items-center row-table-log">
                     <span class="text-${dotColor}-500 ml-2 pb-6" style="font-size: 3rem">&#8226;</span>
                     <div class="w-1/2">
                       <div class="flex items-center">

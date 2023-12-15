@@ -1,0 +1,10 @@
+#numDisplay{
+    height: 100%;
+}
+.dropdown-toggle::after {
+    display: none;
+}
+.row-table-log{
+    height: 53px;
+    /* overflow: hidden; */
+}

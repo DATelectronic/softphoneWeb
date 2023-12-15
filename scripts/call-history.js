@@ -52,10 +52,10 @@ function ajaxCalls() {
                 //     '<button class="btn btn-danger btn-sm" onclick="coaching(' + "'" + agent + "','" +
                 //     interface + "'" +
                 //     ',3)" ><i class="fas fa-phone-slash fa-lg"></i> Desconectar</button>';
-                var innerHtml = `<div class="hover:bg-gray-200 cursor-pointer bg-white border-b-[1px] flex p-3 items-center h-[53.3px] overflow-hidden">
+                var innerHtml = `<div class="hover:bg-gray-200 cursor-pointer bg-white border-b-[1px] flex p-3 items-center row-table-log">
                     <div class="w-2/3">
                       <div class="flex items-center">
-                        <i class="fa fa-phone-square text-black text-3xl ml-2 mb-6"></i>
+                        <i class="fa fa-phone-square text-3xl ml-2 mb-6"></i>
                         <div class="ml-2">
                           <span class="capitalize block text-gray-800 text-2xl">${phone}</span>
                           <span class="block text-gray-600 text-xl">${time}</span>

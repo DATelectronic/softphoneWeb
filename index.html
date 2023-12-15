@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="css/ctxSip.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/sb-admin-2.css" type="text/css">
+    <link rel="stylesheet" href="css/custom.css" type="text/css">
 </head>
 
 <body id="sipClient">
@@ -22,7 +24,7 @@
                     </object> CorusPhone Beta v0.1</div>
                 <div class="w-full flex p-7 bg-gray-200 gap-6 rounded-md">
                     <div class="w-1/3">
-                        <div class="panel panel-default">
+                        <div class="panel panel-default overflow-hidden">
                             <div class="panel-heading">
                                 <h4 class="text-muted panel-title">Anexos disponibles</h4>
                             </div>
@@ -79,7 +81,7 @@
                                 <div id="btnVol" data-toggle="dropdown"
                                     class="inline-flex items-center justify-center mb-2 rounded-none h-full"
                                     data-primary="green-400" data-rounded="rounded-2xl" data-primary-reset="{}">
-                                    <i class="fa fa-fw fa-volume-up text-3xl text-black"></i>
+                                    <i class="fa fa-fw fa-volume-up text-3xl"></i>
                                 </div>
                                 <div class="inline-flex items-center">
                                     <input class="h-[5px]" type="range" min="0" max="100" value="100" step="1"
@@ -109,7 +111,7 @@
                                         data-toggle="dropdown" title="Show Keypad">
                                         <i class="fa fa-th text-4xl text-blue-500"></i>
                                     </button>
-                                    <div id="sip-dialpad" class="dropdown-menu left-[43px] z-[1000]">
+                                    <div id="sip-dialpad" class="dropdown-menu left-[36px] z-[1000]">
                                         <button type="button" class="btn btn-default digit w-1/3"
                                             data-digit="1">1<span>&nbsp;</span></button>
                                         <button type="button" class="btn btn-default digit w-1/3"
@@ -156,7 +158,7 @@
                         </div>
                     </div>
                     <div class="w-1/3">
-                        <div id="sip-log" class="panel panel-default">
+                        <div id="sip-log" class="panel panel-default overflow-hidden" >
                             <div class="panel-heading">
                                 <h4 class="text-muted panel-title">Ultimas llamadas<span class="pull-right"></h4>
                             </div>

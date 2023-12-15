@@ -37,10 +37,6 @@ body {
   /* background-color: #fff; */
   color: #070707;
 }
-
-#sipClient #txtCallStatus {
-  color: black;
-}
 #sipClient #sip-dialpad {
   width: 230px;
   padding: 0px;

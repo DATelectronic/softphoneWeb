@@ -432,9 +432,9 @@ $(document).ready(function () {
                 i += '</div>';
                 $('#call-section').append(i);
             }
-            else {
-                $('#sip-logitems').append(i);
-            }
+            // else {
+            //     $('#sip-logitems').append(i);
+            // }
 
 
 
@@ -468,7 +468,7 @@ $(document).ready(function () {
             if (calllog !== null) {
 
                 $('#call-section').empty();
-                $('#sip-logitems').empty();
+                // $('#sip-logitems').empty();
                 // JS doesn't guarantee property order so
                 // create an array with the start time as
                 // the key and sort by that.
@@ -488,7 +488,7 @@ $(document).ready(function () {
                 });
 
             } else {
-                $('#sip-logitems').empty();
+                // $('#sip-logitems').empty();
             }
         },
 
