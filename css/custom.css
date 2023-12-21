@@ -8,3 +8,6 @@
     height: 53px;
     /* overflow: hidden; */
 }
+.muted , .muted:focus{
+    color: red;
+}

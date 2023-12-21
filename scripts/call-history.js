@@ -1,8 +1,7 @@
-const params = new URLSearchParams(window.location.search);
 var SipLogs = $('#sip-logitems')
 function ajaxCalls() {
     $.ajax({
-        url: `https://172.16.21.142/reportes/ultimas_llamadas_agente/${params.get("param2")}`,
+        url: `https://172.16.21.142/reportes/ultimas_llamadas_agente/${name}`,
         type: 'GET',
         dataType: 'json',
         success: function (data) {

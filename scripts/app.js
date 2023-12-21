@@ -1,6 +1,14 @@
 /* globals SIP,user,moment, Stopwatch */
 
 var ctxSip;
+const params = new URLSearchParams(window.location.search);
+
+// Get specific parameters
+const param1 = params.get('param1');
+const name = params.get('param2');
+const anexo = params.get('param3');
+const host = params.get('param4');
+const pass = params.get('param5');
 
 $(document).ready(function () {
 
@@ -8,15 +16,6 @@ $(document).ready(function () {
     if (typeof (user) === 'undefined') {
         user = JSON.parse(localStorage.getItem('SIPCreds'));
     }
-
-    const params = new URLSearchParams(window.location.search);
-
-    // Get specific parameters
-    const param1 = params.get('param1');
-    const name = params.get('param2');
-    const anexo = params.get('param3');
-    const host = params.get('param4');
-    const pass = params.get('param5');
 
     $('#agent').text(name);
     $('#anexo').text(anexo);

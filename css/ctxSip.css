@@ -2,9 +2,7 @@ html,
 body {
   min-height: 100vh;
 }
-.muted , .muted:focus{
-  color: red;
-}
+
 .primary-shadow {
   --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 53%);
   --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
@@ -25,9 +23,9 @@ body {
   line-height: 18px;
 }
 
-.btn-lg {
+/* .btn-lg {
   border-radius: 0px;
-}
+} */
 
 #sipClient .sipStatus {
   /* margin: 0 -15px 15px -15px; */
@@ -134,12 +132,12 @@ body {
 input:focus {
   outline: none;
 }
-li.active>a {
+/* li.active>a {
   border: none !important;
   background-color: #eee !important;
   border-radius: 0 !important;
   
-}
+} */
 li.active>a:hover {
   color: #555;
   cursor: default;
