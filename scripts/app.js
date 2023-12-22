@@ -409,7 +409,7 @@ $(document).ready(function () {
             i += '<div class="pull-right text-right text-2xl"><em>' + item.clid + '</em><br>' + callLength + '</div></div></div>';
             // console.log(item.innerCall)
             if (callActive) {
-                i += '<div class="relative h-20"></div>';
+                i += '<div class="relative h-[4.7rem]"></div>';
                 i += '<div class="bg-gray-300 w-full flex justify-end absolute bottom-[0%]">';
 
                 if (item.status === 'ringing' && item.flow === 'incoming') {
