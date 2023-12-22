@@ -413,17 +413,17 @@ $(document).ready(function () {
                 i += '<div class="bg-gray-300 w-full flex justify-end absolute bottom-[0%]">';
 
                 if (item.status === 'ringing' && item.flow === 'incoming') {
-                    i += '<button class="btn btn-md btn-success btnCall rounded-none text-4xl" title="Contestar"><i class="fa fa-phone"></i></button>';
+                    i += '<button class="btn btn-md btn-success btnCall rounded-none text-5xl" title="Contestar"><i class="fa fa-phone"></i></button>';
                 } else {
                     if (item.innerCall) {
                         if (item.innerCall == 1) {
                             i += '<button class="btn btn-md btnSendTransfer rounded-none" title="Completar Transferencia"><i class="fa fa-share"></i></button>';
                         }
                     } else if (item.status === 'answered' | item.status === 'resumed' | item.status === 'holding') {
-                        i += '<button class="btn btn-md btnHoldResume rounded-none text-4xl" title="Espera"><i class="fa fa-pause"></i></button>';
-                        i += '<button class="btn btn-md btnTransfer rounded-none text-4xl" title="Transferir"><i class="fa fa-random"></i></button>';
-                        i += '<button class="btn btn-md btnAddBuddy rounded-none text-4xl" title="Agregar persona"><i class="fa fa-plus"></i></button>';
-                        i += '<button class="btn btn-md btnMute rounded-none text-4xl" title="Mutear"><i class="fa fa-fw fa-microphone"></i></button>';
+                        i += '<button class="btn btn-md btnHoldResume rounded-none text-4xl text-dark" title="Espera"><i class="fa fa-pause"></i></button>';
+                        i += '<button class="btn btn-md btnTransfer rounded-none text-4xl text-dark" title="Transferir"><i class="fa fa-random"></i></button>';
+                        i += '<button class="btn btn-md btnAddBuddy rounded-none text-4xl text-dark" title="Agregar persona"><i class="fa fa-plus"></i></button>';
+                        i += '<button class="btn btn-md btnMute rounded-none text-4xl text-dark" title="Mutear"><i class="fa fa-fw fa-microphone"></i></button>';
                     }
                 }
                 i += '<button class="btn btn-md btn-danger btnHangUp rounded-none text-5xl" title="Colgar"><i class="fa fa-phone transform rotate-[138deg]"></i></button>';
@@ -904,12 +904,15 @@ $(document).ready(function () {
         var sessionid = $(this).closest('.sip-logitem').data('sessionid');
         var $button = $(this);
 
-        if ($button.hasClass('muted')) {
+        if ($button.hasClass('text-dark')) {
             // Change the button's color to 'green' when it's in the 'off' state
-            $button.removeClass('muted')
+            $button.removeClass('text-dark')
+            $button.addClass('text-danger')
+
         } else {
             // Change the button's color to 'red' when it's in the 'on' state
-            $button.addClass('muted')
+            $button.removeClass('text-danger')
+            $button.addClass('text-dark')
         }
 
         ctxSip.phoneMuteButtonPressed(sessionid);
