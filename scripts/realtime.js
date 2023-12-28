@@ -44,7 +44,7 @@ function ajaxAgentes() {
                 });
                 var time = data['agent_list'][i]['time'];
                 var interface = data['agent_list'][i]['interface'];
-                var innerHtml = `<div class="hover:bg-gray-200 cursor-pointer bg-white border-b-[1px] flex p-3 items-center row-table-log">
+                var innerHtml = `<div class="hover:bg-gray-200 cursor-pointer bg-white border-b-[1px] flex p-3 items-center row-table-log" anex="${interface}">
                     <span class="text-${dotColor}-500 ml-2 pb-6" style="font-size: 3rem">&#8226;</span>
                     <div class="w-1/2">
                       <div class="flex items-center">

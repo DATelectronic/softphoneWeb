@@ -14,7 +14,7 @@ function ajaxCalls() {
                 var time = data['last_calls'][i]['time'];
                 var duration = data['last_calls'][i]['data2'];
                 var queuename = data['last_calls'][i]['queuename'];
-                var innerHtml = `<div class="hover:bg-gray-200 cursor-pointer bg-white border-b-[1px] flex p-3 items-center row-table-log">
+                var innerHtml = `<div class="hover:bg-gray-200 cursor-pointer bg-white border-b-[1px] flex p-3 items-center row-table-log" phone="${phone}">
                     <div class="w-2/3">
                       <div class="flex items-center">
                         <i class="fa fa-phone-square text-3xl ml-2 mb-6"></i>
