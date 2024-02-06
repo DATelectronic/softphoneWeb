@@ -417,7 +417,7 @@ $(document).ready(function () {
                 } else {
                     if (item.innerCall) {
                         if (item.innerCall == 1) {
-                            i += '<button class="btn btn-md btnSendTransfer rounded-none" title="Completar Transferencia"><i class="fa fa-share"></i></button>';
+                            i += '<button class="btn btn-md btnSendTransfer rounded-none text-4xl text-dark" title="Completar Transferencia"><i class="fa fa-share"></i></button>';
                         }
                     } else if (item.status === 'answered' | item.status === 'resumed' | item.status === 'holding') {
                         i += '<button class="btn btn-md btnHoldResume rounded-none text-4xl text-dark" title="Espera"><i class="fa fa-pause"></i></button>';
